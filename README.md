@@ -12,4 +12,5 @@ git checkout -b your-branch
 # Make your changes and commit
 git commit
 # Push your changes up to github
-git push -u origin your-branch```
+git push -u origin your-branch
+# Then make Pull Request and get approval```
