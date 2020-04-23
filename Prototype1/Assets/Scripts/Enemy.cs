@@ -1,0 +1,60 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
+using UnityEngine.UI;
+
+public class Enemy : MonoBehaviour
+{
+
+    public Text text;
+
+    string word;
+
+    public string GetWord()
+    {
+        return word;
+    }
+
+    public bool CheckSubstringMatch(string input)
+    {
+        // Return true if input is substring of word starting at index 0
+        // Return false otherwise
+
+        if (input.Length <= word.Length) // input cannot be longer than word
+        {
+            return input.Equals(word.Substring(0, input.Length));
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+    public bool CheckCompleteMatch(string input)
+    {
+        return input.Equals(word);
+    }
+    
+
+    void Awake()
+    {
+        string[] words = File.ReadAllLines("Assets/sample_dict.txt");
+
+        word = words[Random.Range(0, words.Length)];
+
+        text.text = word;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        text.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+    }
+
+    void OnDestroy()
+    {
+        Spawner.enemyList.Remove(this);
+    }
+}
