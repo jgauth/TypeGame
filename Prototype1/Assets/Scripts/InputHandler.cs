@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 
@@ -93,12 +94,6 @@ public class InputHandler : MonoBehaviour
 
             OnKeyPressed(ev); // send event
         }
-
-        // this must go after Input.inputString loop
-        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
-        {
-            ResetBuffer();
-        }
     }
 
     void Awake()
@@ -112,9 +107,24 @@ public class InputHandler : MonoBehaviour
         // Debug.Log(input)
         GetInput();
 
+        // Press F11 to toggle fullscreen
         if (Input.GetKeyDown(KeyCode.F11))
         {
+            Debug.Log("F11 Pressed");
             Screen.fullScreen = !Screen.fullScreen;
+        }
+
+        // Press F1 to reload scene
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Debug.Log("F1 Pressed");
+            SceneManager.LoadSceneAsync(0);
+        }
+
+        // this must go after Input.inputString loop
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
+        {
+            ResetBuffer();
         }
     }
 }
