@@ -2,12 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
+public class KeyPressedEventArgs : EventArgs
+{
+    public char key { get; set; }
+    public bool isCorrect { get; set; }
+}
 
 public class InputHandler : MonoBehaviour
 {
 
     public Text inputBuffer;
     int inputBufferLength;
+    public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+
+    protected virtual void OnKeyPressed(KeyPressedEventArgs e)
+    {
+        if (KeyPressed != null)
+        {
+            KeyPressed(this, e);
+        }
+    }
 
 
     public void ResetBuffer()
@@ -38,20 +54,27 @@ public class InputHandler : MonoBehaviour
                 inputBuffer.text += c;
             }
 
-            // Check and update enemies
-            bool correctKeystroke = false; // to be used in accuracy calculation
-            foreach (Enemy e in Spawner.enemyList)
+            
+            KeyPressedEventArgs ev = new KeyPressedEventArgs();
+            ev.key = c;
+            ev.isCorrect = false;
+
+            for (int i=Spawner.enemyList.Count - 1; i>=0; i--)
             {
+                Enemy e = Spawner.enemyList[i];
                 if (e.CheckSubstringMatch(inputBuffer.text))
                 {
-                    correctKeystroke = true;
+                    ev.isCorrect = true;
                     if (e.CheckCompleteMatch(inputBuffer.text))
                     {
+                        // Spawner.enemyList.RemoveAt(i);
                         Destroy(e.gameObject);
                         ResetBuffer();
                     }
                 }
             }
+
+            OnKeyPressed(ev); // send event
         }
 
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))

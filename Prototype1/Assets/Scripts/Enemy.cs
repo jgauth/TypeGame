@@ -39,8 +39,7 @@ public class Enemy : MonoBehaviour
     public bool CheckCompleteMatch(string input)
     {
         return input.Equals(word);
-    }
-    
+    }    
 
     void Awake()
     {
@@ -56,7 +55,7 @@ public class Enemy : MonoBehaviour
         label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         Spawner.enemyList.Remove(this);
     }

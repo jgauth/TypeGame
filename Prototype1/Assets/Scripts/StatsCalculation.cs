@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class StatsCalculation : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    void c_KeyPressed(object sender, KeyPressedEventArgs e)
+    {
+        if (e.key == '\b')
+        {
+            Debug.Log("received backspace");
+        }
+        else
+        {
+            Debug.Log("Received key press: " + e.key + " -- Correct: " + e.isCorrect);
+        }
+    }
+
     void Start()
     {
-        
+        InputHandler.KeyPressed += c_KeyPressed;
     }
 
     // Update is called once per frame
