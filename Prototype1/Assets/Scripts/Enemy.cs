@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
     {
         string[] words = Resources.Load<TextAsset>("sample_dict").text.Split('\n');
 
-        word = words[Random.Range(0, words.Length)];
+        word = words[Random.Range(0, words.Length)].Trim();
 
         text.text = word;
     }
