@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        string[] words = File.ReadAllLines("Assets/sample_dict.txt");
+        string[] words = Resources.Load<TextAsset>("sample_dict").text.Split('\n');
 
         word = words[Random.Range(0, words.Length)];
 
