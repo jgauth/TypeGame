@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
 
-    public Text text;
+    // public Text text;
+    public TextMeshProUGUI text;
+    public Transform label;
+    public float verticalOffset;
 
     string word;
 
@@ -47,10 +51,9 @@ public class Enemy : MonoBehaviour
         text.text = word;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        text.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
     }
 
     void OnDestroy()
