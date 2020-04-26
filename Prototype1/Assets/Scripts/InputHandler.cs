@@ -9,6 +9,10 @@ public class KeyPressedEventArgs : EventArgs
     public char key { get; set; }
     public bool isCorrect { get; set; }
 }
+public class WordCompletedEventArgs : EventArgs
+{
+    public int wordLength { get; set; }
+}
 
 public class InputHandler : MonoBehaviour
 {
@@ -16,12 +20,20 @@ public class InputHandler : MonoBehaviour
     public Text inputBuffer;
     int inputBufferLength;
     public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+    public static event EventHandler<WordCompletedEventArgs> WordCompleted;
 
     protected virtual void OnKeyPressed(KeyPressedEventArgs e)
     {
         if (KeyPressed != null)
         {
             KeyPressed(this, e);
+        }
+    }
+    protected virtual void OnWordCompleted(WordCompletedEventArgs e)
+    {
+        if (WordCompleted != null)
+        {
+            WordCompleted(this, e);
         }
     }
 
@@ -33,8 +45,9 @@ public class InputHandler : MonoBehaviour
 
     void GetInput()
     {
-        // https://docs.unity3d.com/ScriptReference/Input-inputString.html
+        // Debug.Log("Current buffer: [" + inputBuffer.text + "]");
 
+        // https://docs.unity3d.com/ScriptReference/Input-inputString.html
 
         foreach (char c in Input.inputString)
         {
@@ -67,7 +80,11 @@ public class InputHandler : MonoBehaviour
                     ev.isCorrect = true;
                     if (e.CheckCompleteMatch(inputBuffer.text))
                     {
-                        // Spawner.enemyList.RemoveAt(i);
+                        // trigger WordCompleted event
+                        WordCompletedEventArgs wc = new WordCompletedEventArgs();
+                        wc.wordLength = inputBuffer.text.Length;
+                        OnWordCompleted(wc);
+
                         Destroy(e.gameObject);
                         ResetBuffer();
                     }
@@ -77,6 +94,7 @@ public class InputHandler : MonoBehaviour
             OnKeyPressed(ev); // send event
         }
 
+        // this must go after Input.inputString loop
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
         {
             ResetBuffer();
