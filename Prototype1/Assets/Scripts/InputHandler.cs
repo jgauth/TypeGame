@@ -111,5 +111,10 @@ public class InputHandler : MonoBehaviour
         // Debug.Log(Spawner.enemyList.Count);
         // Debug.Log(input)
         GetInput();
+
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
     }
 }
