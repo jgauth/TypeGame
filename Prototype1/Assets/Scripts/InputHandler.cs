@@ -2,12 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+
+public class KeyPressedEventArgs : EventArgs
+{
+    public char key { get; set; }
+    public bool isCorrect { get; set; }
+}
+public class WordCompletedEventArgs : EventArgs
+{
+    public int wordLength { get; set; }
+}
 
 public class InputHandler : MonoBehaviour
 {
 
     public Text inputBuffer;
     int inputBufferLength;
+    public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+    public static event EventHandler<WordCompletedEventArgs> WordCompleted;
+
+    protected virtual void OnKeyPressed(KeyPressedEventArgs e)
+    {
+        if (KeyPressed != null)
+        {
+            KeyPressed(this, e);
+        }
+    }
+    protected virtual void OnWordCompleted(WordCompletedEventArgs e)
+    {
+        if (WordCompleted != null)
+        {
+            WordCompleted(this, e);
+        }
+    }
 
 
     public void ResetBuffer()
@@ -17,8 +45,9 @@ public class InputHandler : MonoBehaviour
 
     void GetInput()
     {
-        // https://docs.unity3d.com/ScriptReference/Input-inputString.html
+        // Debug.Log("Current buffer: [" + inputBuffer.text + "]");
 
+        // https://docs.unity3d.com/ScriptReference/Input-inputString.html
 
         foreach (char c in Input.inputString)
         {
@@ -38,22 +67,34 @@ public class InputHandler : MonoBehaviour
                 inputBuffer.text += c;
             }
 
-            // Check and update enemies
-            bool correctKeystroke = false; // to be used in accuracy calculation
-            foreach (Enemy e in Spawner.enemyList)
+            
+            KeyPressedEventArgs ev = new KeyPressedEventArgs();
+            ev.key = c;
+            ev.isCorrect = false;
+
+            for (int i=Spawner.enemyList.Count - 1; i>=0; i--)
             {
+                Enemy e = Spawner.enemyList[i];
                 if (e.CheckSubstringMatch(inputBuffer.text))
                 {
-                    correctKeystroke = true;
+                    ev.isCorrect = true;
                     if (e.CheckCompleteMatch(inputBuffer.text))
                     {
+                        // trigger WordCompleted event
+                        WordCompletedEventArgs wc = new WordCompletedEventArgs();
+                        wc.wordLength = inputBuffer.text.Length;
+                        OnWordCompleted(wc);
+
                         Destroy(e.gameObject);
                         ResetBuffer();
                     }
                 }
             }
+
+            OnKeyPressed(ev); // send event
         }
 
+        // this must go after Input.inputString loop
         if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
         {
             ResetBuffer();
