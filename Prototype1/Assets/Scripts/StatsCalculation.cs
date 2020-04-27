@@ -14,7 +14,7 @@ public class StatsCalculation : MonoBehaviour
     // accuracy variables
     private int totalKeyPresses = 0;
     private int totalCorrectKeyPresses = 0;
-    private float accuracy;
+    private float accuracy = 0f;
 
     // wpm variables
     private int lettersCompleted = 0;
@@ -37,6 +37,7 @@ public class StatsCalculation : MonoBehaviour
             totalKeyPresses += 1;
             if (e.isCorrect) totalCorrectKeyPresses += 1;
             accuracy = ((float)totalCorrectKeyPresses / (float)totalKeyPresses) * 100f;
+            UpdateAccuracyText();
         }
     }
 
@@ -44,24 +45,32 @@ public class StatsCalculation : MonoBehaviour
     {
         lettersCompleted += e.wordLength;
         wpm = (lettersCompleted / 5.0f) / (timer / 60.0f);
+        UpdateWPMText();
         Debug.Log("Word Completed length: " + e.wordLength);
+    }
+
+    private void UpdateAccuracyText()
+    {
+        accuracyText.text = "Accuracy: " + Math.Round(accuracy, 2) + "%";
+    }
+
+    private void UpdateWPMText()
+    {
+        WPMText.text = "WPM: " + Math.Round(wpm, 0);
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
+        timerText.text = string.Format("{0:N2}", timer);
     }
 
     void Start()
     {
         InputHandler.KeyPressed += c_KeyPressed;
         InputHandler.WordCompleted += c_WordCompleted;
-    }
 
-    private void OnGUI()
-    {
-        timerText.text = string.Format("{0:N2}", timer);
-        accuracyText.text = "Accuracy: " + Math.Round(accuracy, 2) + "%";
-        WPMText.text = "WPM: " + wpm;
+        UpdateAccuracyText();
+        UpdateWPMText();
     }
 }

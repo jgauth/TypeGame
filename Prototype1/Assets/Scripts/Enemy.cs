@@ -15,17 +15,23 @@ public class Enemy : MonoBehaviour
     public string hexTextHighlightColor;
 
     string word;
-    string displayWord;
 
     public string GetWord()
     {
         return word;
     }
 
+    // set the enemies kill word
     public void SetWord(string newWord)
     {
         word = newWord;
-        displayWord = newWord;
+        SetText(word);
+    }
+
+    // set the text the player actually sees
+    private void SetText(string newText)
+    {
+        text.text = newText;
     }
 
     public bool CheckSubstringMatch(string input)
@@ -38,13 +44,13 @@ public class Enemy : MonoBehaviour
         if (input.Length <= word.Length && input.Equals(word.Substring(0, input.Length))) // input cannot be longer than word && substring matches
         {
             // update display text color
-            displayWord = $"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length-input.Length)}";
+            SetText($"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length-input.Length)}");
 
             return true;
         }
         else
         {
-            displayWord = word;
+            SetText(word);
             return false;
         }
         
@@ -61,12 +67,7 @@ public class Enemy : MonoBehaviour
 
         word = words[Random.Range(0, words.Length)].Trim();
 
-        displayWord = word;
-    }
-
-    private void OnGUI()
-    {
-        text.text = displayWord;
+        SetText(word);
     }
 
     void Update()

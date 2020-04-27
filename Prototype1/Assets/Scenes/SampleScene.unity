@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 453186483}
   - component: {fileID: 453186484}
   - component: {fileID: 453186481}
+  - component: {fileID: 453186485}
   m_Layer: 0
   m_Name: ScriptObject
   m_TagString: Untagged
@@ -264,6 +265,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5672693358465239644, guid: c6fb9a77dbe659048a09dcfbe8830290,
     type: 3}
+--- !u!114 &453186485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453186480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d447a72e6409174093a777481443b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &462971227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4410792319835220192, guid: 081fe4da2a394ef4f8c7febb0897c5de,
