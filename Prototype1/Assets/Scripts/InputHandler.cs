@@ -73,9 +73,9 @@ public class InputHandler : MonoBehaviour
             ev.key = c;
             ev.isCorrect = false;
 
-            for (int i=Spawner.enemyList.Count - 1; i>=0; i--)
+            for (int i=Enemy.enemyList.Count - 1; i>=0; i--)
             {
-                Enemy e = Spawner.enemyList[i];
+                Enemy e = Enemy.enemyList[i];
                 if (e.CheckSubstringMatch(inputBuffer.text))
                 {
                     ev.isCorrect = true;
@@ -103,8 +103,6 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log(Spawner.enemyList.Count);
-        // Debug.Log(input)
         GetInput();
 
         // Press F11 to toggle fullscreen

@@ -1,37 +1,86 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using UnityEngine.UI;
+using System;
 using TMPro;
+using Random = UnityEngine.Random;
+
+public class EnemyAddedEventArgs : EventArgs
+{
+
+}
+
+public class EnemyRemovedEventArgs : EventArgs
+{
+
+}
+
+public class EnemyTextChangedEventArgs : EventArgs
+{
+    public string newText;
+}
 
 public class Enemy : MonoBehaviour
 {
 
-    // public Text text;
-    public TextMeshProUGUI text;
-    public Transform label;
+    // set in editor
     public float verticalOffset;
     public string hexTextHighlightColor;
 
-    string word;
+    // list of enemies
+    public static List<Enemy> enemyList = new List<Enemy>();
+
+    // static events
+    public static event EventHandler<EnemyAddedEventArgs> EnemyAdded;
+    public static event EventHandler<EnemyRemovedEventArgs> EnemyRemoved;
+
+    protected virtual void OnEnemyAdded(EnemyAddedEventArgs e)
+    {
+        if (EnemyAdded != null)
+        {
+            EnemyAdded(this, e);
+        }
+    }
+
+    protected virtual void OnEnemyRemoved(EnemyRemovedEventArgs e)
+    {
+        if (EnemyRemoved != null)
+        {
+            EnemyRemoved(this, e);
+        }
+    }
+
+    // non-static events
+    public event EventHandler<EnemyTextChangedEventArgs> EnemyTextChanged;
+
+    protected virtual void OnEnemyTextChanged(EnemyTextChangedEventArgs e)
+    {
+        if (EnemyTextChanged != null)
+        {
+            EnemyTextChanged(this, e);
+        }
+    }
+
+
+    // enemy kill word
+    private string word;
 
     public string GetWord()
     {
         return word;
     }
 
-    // set the enemies kill word
     public void SetWord(string newWord)
     {
         word = newWord;
-        SetText(word);
+        ChangeText(word);
     }
 
-    // set the text the player actually sees
-    private void SetText(string newText)
+    // send text changed event
+    private void ChangeText(string newText)
     {
-        text.text = newText;
+        EnemyTextChangedEventArgs args = new EnemyTextChangedEventArgs();
+        args.newText = newText;
+        OnEnemyTextChanged(args);
     }
 
     public bool CheckSubstringMatch(string input)
@@ -44,39 +93,45 @@ public class Enemy : MonoBehaviour
         if (input.Length <= word.Length && input.Equals(word.Substring(0, input.Length))) // input cannot be longer than word && substring matches
         {
             // update display text color
-            SetText($"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length-input.Length)}");
+            string highlightedText = $"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length - input.Length)}";
+            ChangeText(highlightedText);
 
             return true;
         }
         else
         {
-            SetText(word);
+            ChangeText(word);
             return false;
         }
-        
     }
 
     public bool CheckCompleteMatch(string input)
     {
         return input.Equals(word);
-    }    
+    }
+
 
     void Awake()
     {
         string[] words = Resources.Load<TextAsset>("sample_dict").text.Split('\n');
 
-        word = words[Random.Range(0, words.Length)].Trim();
-
-        SetText(word);
+        SetWord(words[Random.Range(0, words.Length)].Trim());
     }
 
     void Update()
     {
-        label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
+        //label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
+    }
+
+    private void OnEnable()
+    {
+        enemyList.Add(this);
+        OnEnemyAdded(new EnemyAddedEventArgs());
     }
 
     void OnDisable()
     {
-        Spawner.enemyList.Remove(this);
+        enemyList.Remove(this);
+        OnEnemyRemoved(new EnemyRemovedEventArgs());
     }
 }
