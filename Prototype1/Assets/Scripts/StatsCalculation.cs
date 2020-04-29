@@ -63,6 +63,6 @@ public class StatsCalculation : MonoBehaviour
     {
         timerText.text = string.Format("{0:N2}", timer);
         accuracyText.text = "Accuracy: " + Math.Round(accuracy, 2) + "%";
-        WPMText.text = "WPM: " + wpm;
+        WPMText.text = "WPM: " + Math.Round(wpm, 1);
     }
 }

@@ -121,6 +121,7 @@ public class InputHandler : MonoBehaviour
         {
             Debug.Log("F1 Pressed");
             SceneManager.LoadSceneAsync(0);
+            gameStarted = false;
         }
 
         // this must go after Input.inputString loop
