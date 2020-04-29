@@ -49,7 +49,8 @@ public class StatsCalculation : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (InputHandler.gameStarted)
+            timer += Time.deltaTime;
     }
 
     void Start()
