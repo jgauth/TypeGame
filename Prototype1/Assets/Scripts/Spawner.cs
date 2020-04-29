@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     public static List<Enemy> enemyList = new List<Enemy>();
 
     public GameObject enemyPrefab;
-
+    public float spawnRate = 1.5f;
 
     void SpawnEnemyRandomLocation()
     {
@@ -48,14 +48,34 @@ public class Spawner : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             SpawnEnemyRandomLocation();
         }
 
-        //SpawnWordHighlightingTestEnemies();
+        StartCoroutine(SpawnEnemy());
+
+        //SpawnWordHighlightingTestEnemies();        
+    }
+
+    IEnumerator SpawnEnemy()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(spawnRate);
+            if (InputHandler.gameStarted)
+            {
+                int numToSpawn = 5 - enemyList.Count;
+                if (numToSpawn > 0)
+                {
+                    for (int i = 0; i < numToSpawn; i++)
+                    {
+                        SpawnEnemyRandomLocation();
+                    }
+                }
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ public class WordCompletedEventArgs : EventArgs
 
 public class InputHandler : MonoBehaviour
 {
+    public static bool gameStarted = false;
 
     public Text inputBuffer;
     int inputBufferLength;
@@ -65,6 +66,7 @@ public class InputHandler : MonoBehaviour
             }
             else
             {
+                gameStarted = true;
                 inputBuffer.text += c;
             }
 
