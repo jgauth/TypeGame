@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public Transform label;
     public float verticalOffset;
     public string hexTextHighlightColor;
+    public GameObject explosion;
 
     string word;
     string displayWord;
@@ -32,13 +33,13 @@ public class Enemy : MonoBehaviour
     {
         // Return true if input is substring of word starting at index 0
         // Return false otherwise
-        
+
         // also updates in word highlighting
 
         if (input.Length <= word.Length && input.Equals(word.Substring(0, input.Length))) // input cannot be longer than word && substring matches
         {
             // update display text color
-            displayWord = $"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length-input.Length)}";
+            displayWord = $"<color={hexTextHighlightColor}>{word.Substring(0, input.Length)}</color>{word.Substring(input.Length, word.Length - input.Length)}";
 
             return true;
         }
@@ -47,13 +48,19 @@ public class Enemy : MonoBehaviour
             displayWord = word;
             return false;
         }
-        
+
     }
 
     public bool CheckCompleteMatch(string input)
     {
         return input.Equals(word);
-    }    
+    }
+
+    public void Explode()
+    {
+        Instantiate(explosion, this.transform.position, this.transform.rotation);
+        Destroy(gameObject);
+    }
 
     void Awake()
     {
