@@ -8,10 +8,59 @@ public class TextLabelManager : MonoBehaviour
     // Empty gameobject to put labels inside of
     public GameObject labelHolder;
 
-    public GameObject labelPrefab;
+    public EnemyLabel labelPrefab;
 
     private Dictionary<Enemy, EnemyLabel> enemyLabels = new Dictionary<Enemy, EnemyLabel>();
-    
+
+    void c_EnemyAdded(object sender, EnemyAddedEventArgs e)
+    {
+        Debug.Log("Enemy added triggered");
+
+        // testing ///////////////
+        bool match = (sender == e.enemyAdded);
+        if (match)
+        {
+            Debug.Log("Enemy added MATCHED");
+        }
+        else
+        {
+            Debug.Log("Enemy added NO MATCH");
+        }
+        //////////////////////////
+
+        Enemy enemy = e.enemyAdded;
+        // if enemy not already in dict
+        if (!enemyLabels.ContainsKey(enemy))
+        {
+            Debug.Log("ADDING Lable to dict");
+            var newLabel = Instantiate(labelPrefab, labelHolder.transform);
+            enemyLabels.Add(enemy, newLabel);
+            newLabel.SetEnemy(enemy);
+        }
+    }
+
+    void c_EnemyRemoved(object sender, EnemyRemovedEventArgs e)
+    {
+        // TESTING /////////////////////
+        bool match = (sender == e.enemyRemoved);
+        if (match)
+        {
+            Debug.Log("Enemy removed MATCHED");
+        }
+        else
+        {
+            Debug.Log("Enemy removed NO MATCH");
+        }
+        // TESTING /////////////////////
+
+        Enemy enemy = e.enemyRemoved;
+        if (enemyLabels.ContainsKey(enemy))
+        {
+            Destroy(enemyLabels[enemy].gameObject);
+            enemyLabels.Remove(enemy);
+        }
+    }
+
 
     //private List<GameObject> labelList;
     //private List<Enemy> enemyList;
@@ -63,12 +112,18 @@ public class TextLabelManager : MonoBehaviour
         return labelList;
     }
 
-    void Awake()
-    {
-        //Spawner.EnemySpawned += c_EnemySpawned;
-        //InputHandler.WordCompleted += c_WordCompleted;
+    //void Awake()
+    //{
+    //    Spawner.EnemySpawned += c_EnemySpawned;
+    //    InputHandler.WordCompleted += c_WordCompleted;
 
-        //enemyList = Spawner.enemyList;
+    //    enemyList = Spawner.enemyList;
+    //}
+
+    private void Awake()
+    {
+        Enemy.EnemyAdded += c_EnemyAdded;
+        Enemy.EnemyRemoved += c_EnemyRemoved;
     }
 
     // Update is called once per frame

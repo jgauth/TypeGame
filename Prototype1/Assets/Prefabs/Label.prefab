@@ -170,8 +170,9 @@ GameObject:
   - component: {fileID: 7862105532390091669}
   - component: {fileID: 5744634620987168973}
   - component: {fileID: 8759329225577371910}
+  - component: {fileID: 7004801732135413907}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,3 +274,18 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &7004801732135413907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755517682127639812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ee1786f7b4c6544933c4f494677b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 160539599057453248}
+  initialOffset: 0
+  dynamicOffset: 0

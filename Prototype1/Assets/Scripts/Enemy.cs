@@ -6,12 +6,12 @@ using Random = UnityEngine.Random;
 
 public class EnemyAddedEventArgs : EventArgs
 {
-
+    public Enemy enemyAdded;
 }
 
 public class EnemyRemovedEventArgs : EventArgs
 {
-
+    public Enemy enemyRemoved;
 }
 
 public class EnemyTextChangedEventArgs : EventArgs
@@ -33,33 +33,8 @@ public class Enemy : MonoBehaviour
     public static event EventHandler<EnemyAddedEventArgs> EnemyAdded;
     public static event EventHandler<EnemyRemovedEventArgs> EnemyRemoved;
 
-    protected virtual void OnEnemyAdded(EnemyAddedEventArgs e)
-    {
-        if (EnemyAdded != null)
-        {
-            EnemyAdded(this, e);
-        }
-    }
-
-    protected virtual void OnEnemyRemoved(EnemyRemovedEventArgs e)
-    {
-        if (EnemyRemoved != null)
-        {
-            EnemyRemoved(this, e);
-        }
-    }
-
     // non-static events
     public event EventHandler<EnemyTextChangedEventArgs> EnemyTextChanged;
-
-    protected virtual void OnEnemyTextChanged(EnemyTextChangedEventArgs e)
-    {
-        if (EnemyTextChanged != null)
-        {
-            EnemyTextChanged(this, e);
-        }
-    }
-
 
     // enemy kill word
     private string word;
@@ -118,20 +93,52 @@ public class Enemy : MonoBehaviour
         SetWord(words[Random.Range(0, words.Length)].Trim());
     }
 
-    void Update()
-    {
-        //label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
-    }
-
     private void OnEnable()
     {
         enemyList.Add(this);
-        OnEnemyAdded(new EnemyAddedEventArgs());
+
+        EnemyAddedEventArgs args = new EnemyAddedEventArgs();
+        args.enemyAdded = this;
+
+        OnEnemyAdded(args);
+
+        Debug.Log("Inside enemy OnEnable() - called OnEnemyAdded()");
     }
 
     void OnDisable()
     {
         enemyList.Remove(this);
-        OnEnemyRemoved(new EnemyRemovedEventArgs());
+
+        EnemyRemovedEventArgs args = new EnemyRemovedEventArgs();
+        args.enemyRemoved = this;
+        OnEnemyRemoved(args);
+    }
+
+
+    // static events
+    protected virtual void OnEnemyAdded(EnemyAddedEventArgs e)
+    {
+        if (EnemyAdded != null)
+        {
+            Debug.Log("Enemy triggering EnemyAdded event from OnEnemyAdded()");
+            EnemyAdded(this, e);
+        }
+    }
+
+    protected virtual void OnEnemyRemoved(EnemyRemovedEventArgs e)
+    {
+        if (EnemyRemoved != null)
+        {
+            EnemyRemoved(this, e);
+        }
+    }
+
+    // non-static event
+    protected virtual void OnEnemyTextChanged(EnemyTextChangedEventArgs e)
+    {
+        if (EnemyTextChanged != null)
+        {
+            EnemyTextChanged(this, e);
+        }
     }
 }

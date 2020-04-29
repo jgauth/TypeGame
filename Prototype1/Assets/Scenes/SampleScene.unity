@@ -278,7 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   labelHolder: {fileID: 1540763279}
-  labelPrefab: {fileID: 0}
+  labelPrefab: {fileID: 7004801732135413907, guid: 6f753ed4e30ea774db8e82d826d88fd8,
+    type: 3}
 --- !u!4 &462971227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4410792319835220192, guid: 081fe4da2a394ef4f8c7febb0897c5de,
