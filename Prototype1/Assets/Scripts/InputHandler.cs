@@ -70,12 +70,12 @@ public class InputHandler : MonoBehaviour
                 inputBuffer.text += c;
             }
 
-            
+
             KeyPressedEventArgs ev = new KeyPressedEventArgs();
             ev.key = c;
             ev.isCorrect = false;
 
-            for (int i=Spawner.enemyList.Count - 1; i>=0; i--)
+            for (int i = Spawner.enemyList.Count - 1; i >= 0; i--)
             {
                 Enemy e = Spawner.enemyList[i];
                 if (e.CheckSubstringMatch(inputBuffer.text))
@@ -88,7 +88,7 @@ public class InputHandler : MonoBehaviour
                         wc.wordLength = inputBuffer.text.Length;
                         OnWordCompleted(wc);
 
-                        Destroy(e.gameObject);
+                        e.Explode(); // The enemy will be destroyed here
                         ResetBuffer();
                     }
                 }

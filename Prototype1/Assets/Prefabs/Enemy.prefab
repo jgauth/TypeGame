@@ -322,6 +322,7 @@ MonoBehaviour:
   label: {fileID: 5875338995394965235}
   verticalOffset: 1
   hexTextHighlightColor: '#20C20E'
+  explosion: {fileID: 1329845292236604, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
 --- !u!1 &8321151661896288192
 GameObject:
   m_ObjectHideFlags: 0
