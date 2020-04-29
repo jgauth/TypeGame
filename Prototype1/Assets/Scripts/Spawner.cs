@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
         float xPos = Random.Range(-4.0f, 4.0f);
         float zPos = Random.Range(-4.0f, 4.0f);
 
-        GameObject g = (GameObject)Instantiate(enemyPrefab, new Vector3(xPos, 1, zPos), Quaternion.identity);
+        GameObject g = (GameObject)Instantiate(enemyPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity);
         Enemy e = g.GetComponent<Enemy>();
         enemyList.Add(e);
     }
