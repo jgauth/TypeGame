@@ -8,7 +8,6 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
 
-    // public Text text;
     public TextMeshProUGUI text;
     public Transform label;
     public float verticalOffset;
