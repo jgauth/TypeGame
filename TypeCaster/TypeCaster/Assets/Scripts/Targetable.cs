@@ -4,10 +4,10 @@ using UnityEngine;
 using System;
 
 public class TargetableAddedEventArgs : EventArgs {
-    public Targetable TargetableAdded;
+    public Targetable targetableAdded;
 }
 public class TargetableRemovedEventArgs : EventArgs {
-    public Targetable TargetableRemoved;
+    public Targetable targetableRemoved;
 }
 public class TargetableTextChangedEventArgs : EventArgs {
     public string newText;
@@ -39,7 +39,7 @@ public class Targetable : MonoBehaviour {
     // word displayed in canvas above targetable, with highlighting
     private string displayWord;
 
-    public string GetWord() {
+    public string GetKillWord() {
         return killWord;
     }
 
@@ -87,13 +87,14 @@ public class Targetable : MonoBehaviour {
 
     private void Start() {
         SetKillWord(WordGenerator.GetRandomWord());
+        Debug.Log(killWord);
     }
 
     private void OnEnable() {
         targetableList.Add(this);
 
         TargetableAddedEventArgs args = new TargetableAddedEventArgs();
-        args.TargetableAdded = this;
+        args.targetableAdded = this;
 
         OnTargetableAdded(args);
     }
@@ -102,7 +103,7 @@ public class Targetable : MonoBehaviour {
         targetableList.Remove(this);
 
         TargetableRemovedEventArgs args = new TargetableRemovedEventArgs();
-        args.TargetableRemoved = this;
+        args.targetableRemoved = this;
         
         OnTargetableRemoved(args);
     }
