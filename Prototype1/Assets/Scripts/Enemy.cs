@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public string hexTextHighlightColor;
     public GameObject explosion;
 
+
     public float speed = 1.0f;
     public float killRange = 1.0f;
 
@@ -83,16 +84,18 @@ public class Enemy : MonoBehaviour
     {
         Camera mainCamera = Camera.main;
 
-        if (InputHandler.gameStarted) {
+        if (InputHandler.gameStarted)
+        {
             float step = speed * Time.deltaTime;
             Vector3 adjustedTarget = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
-            
+
             transform.position = Vector3.MoveTowards(transform.position, adjustedTarget, step);
         }
 
         label.position = mainCamera.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
 
-        if (label.position.y < 0) {
+        if (label.position.y < 0)
+        {
             SceneManager.LoadSceneAsync(0);
             InputHandler.gameStarted = false;
         }

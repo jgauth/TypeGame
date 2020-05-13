@@ -21,6 +21,9 @@ public class InputHandler : MonoBehaviour
 
     public Text inputBuffer;
     int inputBufferLength;
+    public AudioClip vortex;
+    public AudioClip key;
+    private AudioSource gameAudio;
     public static event EventHandler<KeyPressedEventArgs> KeyPressed;
     public static event EventHandler<WordCompletedEventArgs> WordCompleted;
 
@@ -28,6 +31,7 @@ public class InputHandler : MonoBehaviour
     {
         if (KeyPressed != null)
         {
+            gameAudio.PlayOneShot(key, 1.0F);
             KeyPressed(this, e);
         }
     }
@@ -87,7 +91,7 @@ public class InputHandler : MonoBehaviour
                         WordCompletedEventArgs wc = new WordCompletedEventArgs();
                         wc.wordLength = inputBuffer.text.Length;
                         OnWordCompleted(wc);
-
+                        gameAudio.PlayOneShot(vortex, 0.3F);
                         e.Explode(); // The enemy will be destroyed here
                         ResetBuffer();
                     }
@@ -100,6 +104,7 @@ public class InputHandler : MonoBehaviour
 
     void Awake()
     {
+        gameAudio = GetComponent<AudioSource>();
         ResetBuffer();
     }
 
