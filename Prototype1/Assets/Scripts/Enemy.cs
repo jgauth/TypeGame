@@ -101,8 +101,6 @@ public class Enemy : MonoBehaviour
         args.enemyAdded = this;
 
         OnEnemyAdded(args);
-
-        Debug.Log("Inside enemy OnEnable() - called OnEnemyAdded()");
     }
 
     void OnDisable()
@@ -120,7 +118,6 @@ public class Enemy : MonoBehaviour
     {
         if (EnemyAdded != null)
         {
-            Debug.Log("Enemy triggering EnemyAdded event from OnEnemyAdded()");
             EnemyAdded(this, e);
         }
     }

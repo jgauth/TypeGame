@@ -59,7 +59,7 @@ public class InputHandler : MonoBehaviour
                     inputBuffer.text = inputBuffer.text.Substring(0, inputBuffer.text.Length - 1);
                 }
             }
-            else if ((c == '\n') || (c == '\r')) // if enter/return
+            else if ((c == '\n') || (c == '\r') || (c == ' ')) // if enter/return/space
             {
                 continue; // ignore and read next char
             }
@@ -116,7 +116,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("F1 Pressed");
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.LoadScene(0);
         }
 
         // this must go after Input.inputString loop
