@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Enemy : MonoBehaviour
@@ -13,6 +14,9 @@ public class Enemy : MonoBehaviour
     public float verticalOffset;
     public string hexTextHighlightColor;
     public GameObject explosion;
+
+    public float speed = 1.0f;
+    public float killRange = 1.0f;
 
     string word;
     string displayWord;
@@ -77,7 +81,21 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        label.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
+        Camera mainCamera = Camera.main;
+
+        if (InputHandler.gameStarted) {
+            float step = speed * Time.deltaTime;
+            Vector3 adjustedTarget = new Vector3(mainCamera.transform.position.x, transform.position.y, mainCamera.transform.position.z);
+            
+            transform.position = Vector3.MoveTowards(transform.position, adjustedTarget, step);
+        }
+
+        label.position = mainCamera.WorldToScreenPoint(transform.position + Vector3.up * verticalOffset);
+
+        if (label.position.y < 0) {
+            SceneManager.LoadSceneAsync(0);
+            InputHandler.gameStarted = false;
+        }
     }
 
     void OnDisable()
