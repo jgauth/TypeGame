@@ -8,9 +8,9 @@ public class TestSpawner : MonoBehaviour {
     public List<GameObject> standardEnemyPrefabs;
 
     void Start() {
-        SpawnSixEnemies();
+        // SpawnSixEnemies();
         // SpawnOverlappers();
-        // SpawnRandomLocation(25);
+        SpawnRandomLocation(25);
     }
 
     void SpawnTwoEnemies() {
