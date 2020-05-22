@@ -17,8 +17,8 @@ public class WordCompletedEventArgs : EventArgs {
 public class InputHandler : MonoBehaviour {
 
     public Text inputBuffer;
-    public static event EventHandler<KeyPressedEventArgs> KeyPressed;
-    public static event EventHandler<WordCompletedEventArgs> WordCompleted;
+    public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
+    public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
 
     // Reset current buffer to empty string
     public void ResetBuffer() {
@@ -42,13 +42,13 @@ public class InputHandler : MonoBehaviour {
             }
 
             else {
-                // all other characters
+                // all other characters get added to the input buffer
                 inputBuffer.text += c;
             }
 
             KeyPressedEventArgs e = new KeyPressedEventArgs();
             e.key = c;
-            e.isCorrect = false;
+            e.isCorrect = false; 
 
             // iterate through list backwards so that items can be removed
             for (int i=Targetable.targetableList.Count - 1; i>=0; i--) {

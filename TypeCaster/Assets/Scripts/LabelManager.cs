@@ -11,6 +11,7 @@ public class LabelManager : MonoBehaviour {
 
     private Dictionary<Targetable, Label> targetableLabels = new Dictionary<Targetable, Label>();
 
+    // when new targetables are spawned, this will create the label for them
     void c_TargetableAdded(object sender, TargetableAddedEventArgs args) {
         Targetable t = args.targetableAdded;
 
@@ -22,11 +23,11 @@ public class LabelManager : MonoBehaviour {
         }
     }
 
+    // remove label when targetables are despawned
     void c_TargetableRemoved(object sender, TargetableRemovedEventArgs args) {
         Targetable t = args.targetableRemoved;
 
         if (targetableLabels.ContainsKey(t)) {
-            
             if (targetableLabels[t]) {
                 Destroy(targetableLabels[t].gameObject);
             }

@@ -19,7 +19,6 @@ public class TargetableWordCompletedEventArgs : EventArgs {
 
 public class Targetable : MonoBehaviour {
 
-    // ///////////public float verticalOffset;
     public string hexTextHighlightColor;
 
     // static list of all targetables
@@ -86,7 +85,7 @@ public class Targetable : MonoBehaviour {
     }
 
     private void Start() {
-        SetKillWord(WordGenerator.GetRandomWord());
+        SetKillWord(WordGenerator.GetRandomWord()); // May want to have this handled by the enemy classes
     }
 
     private void OnEnable() {
