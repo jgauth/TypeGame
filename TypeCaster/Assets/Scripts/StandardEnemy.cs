@@ -14,4 +14,8 @@ public class StandardEnemy : MonoBehaviour {
     private void c_TargetableWordCompleted(object sender, TargetableWordCompletedEventArgs args) {
         Destroy(gameObject);
     }
+    
+    private void OnDisable() {
+        targetable.TargetableWordCompleted -= c_TargetableWordCompleted;
+    }
 }

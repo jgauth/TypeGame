@@ -9,6 +9,7 @@ public class TestSpawner : MonoBehaviour {
 
     void Start() {
         SpawnSixEnemies();
+        // SpawnOverlappers();
     }
 
     void SpawnTwoEnemies() {
@@ -22,9 +23,13 @@ public class TestSpawner : MonoBehaviour {
     }
 
     void SpawnSixEnemies() {
-        GameObject toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
-        GameObject g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, -6), Quaternion.identity);
-        Targetable t = g.GetComponent<Targetable>();
+        GameObject toSpawn;
+        GameObject g;
+        Targetable t;
+
+        toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
+        g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, -6), Quaternion.identity);
+        t = g.GetComponent<Targetable>();
 
         toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
         g = (GameObject)Instantiate(toSpawn, new Vector3(3, -1, -6), Quaternion.identity);
@@ -44,6 +49,25 @@ public class TestSpawner : MonoBehaviour {
 
         toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
         g = (GameObject)Instantiate(toSpawn, new Vector3(3, -1, 0), Quaternion.identity);
+        t = g.GetComponent<Targetable>();
+    }
+
+    void SpawnOverlappers() {
+
+        GameObject toSpawn;
+        GameObject g;
+        Targetable t;
+
+        toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
+        g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, 0), Quaternion.identity);
+        t = g.GetComponent<Targetable>();
+
+        toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
+        g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, -3), Quaternion.identity);
+        t = g.GetComponent<Targetable>();
+
+        toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
+        g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, -6), Quaternion.identity);
         t = g.GetComponent<Targetable>();
     }
 }

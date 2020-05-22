@@ -87,7 +87,6 @@ public class Targetable : MonoBehaviour {
 
     private void Start() {
         SetKillWord(WordGenerator.GetRandomWord());
-        Debug.Log(killWord);
     }
 
     private void OnEnable() {

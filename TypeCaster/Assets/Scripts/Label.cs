@@ -7,7 +7,7 @@ public class Label : MonoBehaviour {
 
     public Text labelText;
 
-    // public float dynamicOffset = 0; // used to position text so it doesn't overlap with other text
+    public float dynamicOffset = 0; // used to position text so it doesn't overlap with other text
 
     private Targetable targetable;
     // private float initialOffset = 0; // used to set text above enemy
@@ -23,9 +23,10 @@ public class Label : MonoBehaviour {
         labelText.text = args.newText;
     }
 
-
     private void LateUpdate() {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(targetable.transform.position);
+        screenPos.y += dynamicOffset;
+        screenPos.z = 0f;
         transform.position = screenPos;
     }
 
