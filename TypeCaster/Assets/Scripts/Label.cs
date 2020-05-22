@@ -19,16 +19,20 @@ public class Label : MonoBehaviour {
         // initialOffset = enemy.gameObject.GetComponent<Renderer>().bounds.extents.y; // get height of enemy
     }
 
+    public Targetable GetTargetable() {
+        return this.targetable;
+    }
+
     private void c_TargetableTextChanged(object sender, TargetableTextChangedEventArgs args) {
         labelText.text = args.newText;
     }
 
-    private void LateUpdate() {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(targetable.transform.position);
-        screenPos.y += dynamicOffset;
-        screenPos.z = 0f;
-        transform.position = screenPos;
-    }
+    // private void LateUpdate() {
+    //     Vector3 screenPos = Camera.main.WorldToScreenPoint(targetable.transform.position);
+    //     screenPos.y += dynamicOffset;
+    //     screenPos.z = 0f;
+    //     transform.position = screenPos;
+    // }
 
     private void OnDisable() {
         targetable.TargetableTextChanged -= c_TargetableTextChanged;

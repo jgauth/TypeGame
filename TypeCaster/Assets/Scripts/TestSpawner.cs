@@ -10,6 +10,7 @@ public class TestSpawner : MonoBehaviour {
     void Start() {
         SpawnSixEnemies();
         // SpawnOverlappers();
+        // SpawnRandomLocation(25);
     }
 
     void SpawnTwoEnemies() {
@@ -69,5 +70,18 @@ public class TestSpawner : MonoBehaviour {
         toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
         g = (GameObject)Instantiate(toSpawn, new Vector3(-3, -1, -6), Quaternion.identity);
         t = g.GetComponent<Targetable>();
+    }
+
+    void SpawnRandomLocation(int num) {
+        GameObject toSpawn;
+        GameObject g;
+
+        for (int i = 0; i < num; i++) {
+            float xPos = Random.Range(-5.0f, 5.0f);
+            float zPos = Random.Range(-7.0f, 2.0f);
+
+            toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
+            g = (GameObject)Instantiate(toSpawn, new Vector3(xPos, -1, zPos), Quaternion.identity);
+        }
     }
 }

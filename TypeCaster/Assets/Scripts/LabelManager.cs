@@ -6,7 +6,7 @@ public class LabelManager : MonoBehaviour {
 
     // Empty gameobject to put labels inside of
     public GameObject labelHolder;
-
+    public Camera mainCamera;
     public Label labelPrefab;
 
     private Dictionary<Targetable, Label> targetableLabels = new Dictionary<Targetable, Label>();
@@ -76,42 +76,83 @@ public class LabelManager : MonoBehaviour {
         return labelList;
     }
 
+    // private void LateUpdate() {
+    //     // if (Input.GetKeyDown(KeyCode.G)) {
+    //         List<Label> labelList = CreatedSortedLabelList();
+
+    //         int numLabels = labelList.Count;
+    //         for (int i = 0; i < numLabels - 1; i++) {
+    //             for (int j = i+1; j < numLabels; j++) {
+
+    //                 Label a = labelList[i];
+    //                 Label b = labelList[j];
+
+    //                 RectTransform rectTrans_a = a.GetComponent<RectTransform>();
+    //                 RectTransform rectTrans_b = b.GetComponent<RectTransform>();
+
+    //                 Vector3[] v_a = new Vector3[4];
+    //                 Vector3[] v_b = new Vector3[4];
+
+    //                 rectTrans_a.GetWorldCorners(v_a);
+    //                 rectTrans_b.GetWorldCorners(v_b);
+
+    //                 Rect rect_a = new Rect(v_a[1].x, v_a[1].y, v_a[2].x - v_a[1].x, v_a[1].y - v_a[0].y);
+    //                 Rect rect_b = new Rect(v_b[1].x, v_b[1].y, v_b[2].x - v_b[1].x, v_b[1].y - v_b[0].y);
+
+
+    //                 if (rect_a.Overlaps(rect_b)) {
+
+    //                     Debug.Log($"{a.labelText.text} overlaps {b.labelText.text}");
+
+    //                     while(rect_a.Overlaps(rect_b)) {
+    //                         rect_b.y += 2f;
+    //                         b.dynamicOffset += 2f;
+    //                     }
+    //                     b.dynamicOffset += 2f;
+    //                 }
+    //             }
+    //         }
+    //     // }
+    // }
+
     private void LateUpdate() {
-        // if (Input.GetKeyDown(KeyCode.G)) {
-            List<Label> labelList = CreatedSortedLabelList();
+        List<Label> labelList = CreatedSortedLabelList();
 
-            int numLabels = labelList.Count;
-            for (int i = 0; i < numLabels - 1; i++) {
-                for (int j = i+1; j < numLabels; j++) {
+        // foreach (Label l in labelList) {
+        //     Targetable t = l.GetTargetable();
+        //     Vector3 screenPos = mainCamera.WorldToScreenPoint(t.transform.position);
+        // }
 
-                    Label a = labelList[i];
-                    Label b = labelList[j];
+        Label temp, current;
+        RectTransform tempRectTrans, currentRectTrans;
+        Vector3[] tempV = new Vector3[4];
+        Vector3[] currentV = new Vector3[4];
+        Rect tempRect, currentRect;
+        for (int i = 0; i < labelList.Count; i++) {
 
-                    RectTransform rectTrans_a = a.GetComponent<RectTransform>();
-                    RectTransform rectTrans_b = b.GetComponent<RectTransform>();
+            current = labelList[i];
+            Vector3 idealPos = mainCamera.WorldToScreenPoint(current.GetTargetable().transform.position);
+            idealPos.z = 0f;
+            current.transform.position = idealPos;
 
-                    Vector3[] v_a = new Vector3[4];
-                    Vector3[] v_b = new Vector3[4];
+            currentRectTrans = current.GetComponent<RectTransform>();
+            currentRectTrans.GetWorldCorners(currentV);
+            currentRect = new Rect(currentV[1].x, currentV[1].y, currentV[2].x - currentV[1].x, currentV[1].y - currentV[0].y);
+            
+            for (int j = 0; j < i; j++) {
 
-                    rectTrans_a.GetWorldCorners(v_a);
-                    rectTrans_b.GetWorldCorners(v_b);
+                temp = labelList[j];
+                tempRectTrans = temp.GetComponent<RectTransform>();
+                tempRectTrans.GetWorldCorners(tempV);
+                tempRect = new Rect(tempV[1].x, tempV[1].y, tempV[2].x - tempV[1].x, tempV[1].y - tempV[0].y);
 
-                    Rect rect_a = new Rect(v_a[1].x, v_a[1].y, v_a[2].x - v_a[1].x, v_a[1].y - v_a[0].y);
-                    Rect rect_b = new Rect(v_b[1].x, v_b[1].y, v_b[2].x - v_b[1].x, v_b[1].y - v_b[0].y);
-
-
-                    if (rect_a.Overlaps(rect_b)) {
-
-                        Debug.Log($"{a.labelText.text} overlaps {b.labelText.text}");
-
-                        while(rect_a.Overlaps(rect_b)) {
-                            rect_b.y += 2f;
-                            b.dynamicOffset += 2f;
-                        }
-                        b.dynamicOffset += 2f;
-                    }
+                while (tempRect.Overlaps(currentRect)) {
+                    currentRect.y += 2f;
+                    idealPos.y += 2f;
                 }
             }
-        // }
+
+            current.transform.position = idealPos;
+        }
     }
 }
