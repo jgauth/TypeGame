@@ -60,7 +60,9 @@ public class StatsCalculation : MonoBehaviour {
     }
 
     void Update() {
-        timer += Time.deltaTime;
-        timerText.text = string.Format("{0:N2}", timer);       
+        if (InputHandler.gameStarted) {
+            timer += Time.deltaTime;
+            timerText.text = string.Format("{0:N2}", timer);
+        }
     }
 }

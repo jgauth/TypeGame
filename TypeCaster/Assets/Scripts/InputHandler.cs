@@ -20,6 +20,8 @@ public class InputHandler : MonoBehaviour {
     public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
     public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
 
+    public static bool gameStarted = false; // this should probably be moved to its own GameState class 
+
     // Reset current buffer to empty string
     public void ResetBuffer() {
         inputBuffer.text = "";
@@ -44,6 +46,7 @@ public class InputHandler : MonoBehaviour {
             else {
                 // all other characters get added to the input buffer
                 inputBuffer.text += c;
+                gameStarted = true; // start the game on first keypress
             }
 
             KeyPressedEventArgs e = new KeyPressedEventArgs();
@@ -91,6 +94,7 @@ public class InputHandler : MonoBehaviour {
         // Press F1 to reload scene
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            gameStarted = false;
             SceneManager.LoadScene(0);
         }
     }
