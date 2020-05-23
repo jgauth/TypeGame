@@ -81,7 +81,7 @@ public class TestSpawner : MonoBehaviour {
             float zPos = Random.Range(-7.0f, 2.0f);
 
             toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
-            g = (GameObject)Instantiate(toSpawn, new Vector3(xPos, -1, zPos), Quaternion.identity);
+            g = (GameObject)Instantiate(toSpawn, new Vector3(xPos, 0, zPos), Quaternion.identity);
         }
     }
 }
