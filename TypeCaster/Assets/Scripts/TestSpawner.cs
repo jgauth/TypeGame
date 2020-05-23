@@ -10,7 +10,7 @@ public class TestSpawner : MonoBehaviour {
     void Start() {
         // SpawnSixEnemies();
         // SpawnOverlappers();
-        SpawnRandomLocation(25);
+        SpawnRandomLocation(15);
     }
 
     void SpawnTwoEnemies() {

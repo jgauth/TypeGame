@@ -18,11 +18,14 @@ public class InputHandler : MonoBehaviour {
 
     public Text inputBuffer;
     public RectTransform layoutRoot;
+    public AudioClip keyClick;
+    public AudioSource audioSource;
 
     public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
     public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
 
-    public static bool gameStarted = false; // this should probably be moved to its own GameState class 
+    public static bool gameStarted = false; // this should probably be moved to its own GameState class
+
 
     // Reset current buffer to empty string
     public void ResetBuffer() {
@@ -65,6 +68,7 @@ public class InputHandler : MonoBehaviour {
             e.key = c;
             e.isCorrect = UpdateHighlighting();
 
+            audioSource.PlayOneShot(keyClick, 1.0f);
             OnKeyPressed(e); // trigger global key pressed event
         }
     }

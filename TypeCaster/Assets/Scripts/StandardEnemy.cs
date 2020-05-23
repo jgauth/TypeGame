@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StandardEnemy : MonoBehaviour {
 
+    public ParticleSystem deathParticleEffect;
+    public AudioClip deathSound;
+    
     Targetable targetable;
 
     void Awake() {
@@ -12,6 +15,11 @@ public class StandardEnemy : MonoBehaviour {
     }
 
     private void c_TargetableWordCompleted(object sender, TargetableWordCompletedEventArgs args) {
+        // Need to set particle "stop action" to "destroy" in the editor so that it will be automatically destroyed when finished playing
+        ParticleSystem ps = Instantiate(deathParticleEffect, transform.position, Quaternion.identity);
+
+        // this function spawns a gameobject at transform.position to play the sound, then destroys the gameObject
+        AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
         Destroy(gameObject);
     }
     

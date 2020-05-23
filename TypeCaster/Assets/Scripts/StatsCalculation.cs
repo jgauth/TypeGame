@@ -23,11 +23,11 @@ public class StatsCalculation : MonoBehaviour {
     void c_KeyPressed(object sender, KeyPressedEventArgs e) {
         
         if (e.key == '\b') {
-            Debug.Log("received backspace: " + (int)e.key);
+            // Debug.Log("received backspace: " + (int)e.key);
         }
 
         else {
-            Debug.Log("Received key press: " + (int)e.key + " -- Correct: " + e.isCorrect);
+            // Debug.Log("Received key press: " + (int)e.key + " -- Correct: " + e.isCorrect);
             totalKeyPresses += 1;
             if (e.isCorrect) totalCorrectKeyPresses += 1;
             accuracy = ((float)totalCorrectKeyPresses / (float)totalKeyPresses) * 100f;
@@ -39,7 +39,7 @@ public class StatsCalculation : MonoBehaviour {
     void c_WordCompleted(object sender, WordCompletedEventArgs e) {
         lettersCompleted += e.wordLength;
         wpm = (lettersCompleted / 5.0f) / (timer / 60.0f);
-        Debug.Log("Word Completed length: " + e.wordLength);
+        // Debug.Log("Word Completed length: " + e.wordLength);
 
         WPMText.text = "WPM: " + Math.Round(wpm, 1);
     }
