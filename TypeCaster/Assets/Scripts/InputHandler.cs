@@ -17,6 +17,8 @@ public class WordCompletedEventArgs : EventArgs {
 public class InputHandler : MonoBehaviour {
 
     public Text inputBuffer;
+    public RectTransform layoutRoot;
+
     public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
     public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
 
@@ -25,7 +27,7 @@ public class InputHandler : MonoBehaviour {
     // Reset current buffer to empty string
     public void ResetBuffer() {
         inputBuffer.text = "";
-        inputBuffer.rectTransform.ForceUpdateRectTransforms();
+        LayoutRebuilder.MarkLayoutForRebuild(layoutRoot);
     }
     
     private void GetMainInput() {
@@ -36,7 +38,15 @@ public class InputHandler : MonoBehaviour {
             if (c == '\b') {
                 if (inputBuffer.text.Length != 0) {
                     inputBuffer.text = inputBuffer.text.Substring(0, inputBuffer.text.Length - 1); // backspace
+                    if (inputBuffer.text.Length == 0) {
+                        LayoutRebuilder.MarkLayoutForRebuild(layoutRoot); // update layout when string is empty so that background behind text gets removed
+                    }
                 }
+            }
+
+            else if ((int)c == 127) {
+                // ignore ASCII DEL
+                continue;
             }
 
             else if ((c == '\n') || (c == '\r') || (c == ' ')) {
@@ -85,7 +95,7 @@ public class InputHandler : MonoBehaviour {
             ResetBuffer();
         }
 
-        // Tab //////////////////////////////////////////////////////////////////////
+        // Tab
         if (Input.GetKeyDown(KeyCode.Tab)) {
             ResetBuffer();
         }
