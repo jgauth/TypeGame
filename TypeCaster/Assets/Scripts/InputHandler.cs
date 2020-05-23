@@ -28,6 +28,7 @@ public class InputHandler : MonoBehaviour {
     public void ResetBuffer() {
         inputBuffer.text = "";
         LayoutRebuilder.MarkLayoutForRebuild(layoutRoot);
+        UpdateHighlighting();
     }
     
     private void GetMainInput() {
@@ -62,28 +63,33 @@ public class InputHandler : MonoBehaviour {
 
             KeyPressedEventArgs e = new KeyPressedEventArgs();
             e.key = c;
-            e.isCorrect = false; 
-
-            // iterate through list backwards so that items can be removed
-            for (int i=Targetable.targetableList.Count - 1; i>=0; i--) {
-                Targetable t = Targetable.targetableList[i];
-
-                if (t.CheckSubstringMatch(inputBuffer.text)) {
-                    e.isCorrect = true;
-
-                    if (t.CheckCompleteMatch(inputBuffer.text)) {
-                        
-                        WordCompletedEventArgs wc = new WordCompletedEventArgs();
-                        wc.wordLength = inputBuffer.text.Length;
-                        OnWordCompleted(wc); // trigger global word completed event
-
-                        ResetBuffer();
-                    }
-                }
-            }
+            e.isCorrect = UpdateHighlighting();
 
             OnKeyPressed(e); // trigger global key pressed event
         }
+    }
+
+    private bool UpdateHighlighting() {
+        bool isCorrect = false;
+
+        // iterate through list backwards so that items can be removed
+        for (int i = Targetable.targetableList.Count - 1; i >= 0; i--) {
+            Targetable t = Targetable.targetableList[i];
+
+            if (t.CheckSubstringMatch(inputBuffer.text)) {
+                isCorrect = true;
+
+                if (t.CheckCompleteMatch(inputBuffer.text)) {
+                    WordCompletedEventArgs wc = new WordCompletedEventArgs();
+                    wc.wordLength = inputBuffer.text.Length;
+                    OnWordCompleted(wc); // trigger global word completed event
+
+                    ResetBuffer();
+                }
+            }
+        }
+
+        return isCorrect;
     }
 
     private void GetControlInput() {
