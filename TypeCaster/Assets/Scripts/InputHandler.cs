@@ -25,6 +25,7 @@ public class InputHandler : MonoBehaviour {
     // Reset current buffer to empty string
     public void ResetBuffer() {
         inputBuffer.text = "";
+        inputBuffer.rectTransform.ForceUpdateRectTransforms();
     }
     
     private void GetMainInput() {
@@ -80,20 +81,22 @@ public class InputHandler : MonoBehaviour {
         // get input that controls game ie F-keys, clear buffer
 
         // Ctrl + Backspace 
-        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
-        {
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace)) {
+            ResetBuffer();
+        }
+
+        // Tab //////////////////////////////////////////////////////////////////////
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             ResetBuffer();
         }
 
         // Press F11 to toggle fullscreen
-        if (Input.GetKeyDown(KeyCode.F11))
-        {
+        if (Input.GetKeyDown(KeyCode.F11)) {
             Screen.fullScreen = !Screen.fullScreen;
         }
 
         // Press F1 to reload scene
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
+        if (Input.GetKeyDown(KeyCode.F1)) {
             gameStarted = false;
             SceneManager.LoadScene(0);
         }
