@@ -8,6 +8,7 @@ public class LabelManager : MonoBehaviour {
     public GameObject labelHolder;
     public Camera mainCamera;
     public Label labelPrefab;
+    public float heightOffsetScale = 2f; // how high to scale the labels above the Targetable
 
     private Dictionary<Targetable, Label> targetableLabels = new Dictionary<Targetable, Label>();
 
@@ -91,7 +92,7 @@ public class LabelManager : MonoBehaviour {
         for (int i = 0; i < labelList.Count; i++) {
 
             current = labelList[i];
-            Vector3 idealPos = mainCamera.WorldToScreenPoint(current.GetTargetable().transform.position);
+            Vector3 idealPos = mainCamera.WorldToScreenPoint(current.GetTargetable().transform.position + Vector3.up * current.GetHeightOffset() * heightOffsetScale);
             idealPos.z = 0f;
             current.transform.position = idealPos;
 

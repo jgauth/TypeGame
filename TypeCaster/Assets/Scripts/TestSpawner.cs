@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class TestSpawner : MonoBehaviour {
 
     public List<GameObject> standardEnemyPrefabs;
+    public Transform enemyHolder;
 
     void Start() {
         // SpawnSixEnemies();
@@ -81,7 +82,7 @@ public class TestSpawner : MonoBehaviour {
             float zPos = Random.Range(-7.0f, 2.0f);
 
             toSpawn = standardEnemyPrefabs[Random.Range(0, standardEnemyPrefabs.Count)];
-            g = (GameObject)Instantiate(toSpawn, new Vector3(xPos, 0, zPos), Quaternion.identity);
+            g = (GameObject)Instantiate(toSpawn, new Vector3(xPos, 0, zPos), Quaternion.identity, enemyHolder);
         }
     }
 }
