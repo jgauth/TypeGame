@@ -17,12 +17,21 @@ public class WordCompletedEventArgs : EventArgs {
 public class InputHandler : MonoBehaviour {
 
     public Text inputBuffer;
-    public static event EventHandler<KeyPressedEventArgs> KeyPressed;
-    public static event EventHandler<WordCompletedEventArgs> WordCompleted;
+    public RectTransform layoutRoot;
+    public AudioClip keyClick;
+    public AudioSource audioSource;
+
+    public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
+    public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
+
+    public static bool gameStarted = false; // this should probably be moved to its own GameState class
+
 
     // Reset current buffer to empty string
     public void ResetBuffer() {
         inputBuffer.text = "";
+        LayoutRebuilder.MarkLayoutForRebuild(layoutRoot);
+        UpdateHighlighting();
     }
     
     private void GetMainInput() {
@@ -33,7 +42,15 @@ public class InputHandler : MonoBehaviour {
             if (c == '\b') {
                 if (inputBuffer.text.Length != 0) {
                     inputBuffer.text = inputBuffer.text.Substring(0, inputBuffer.text.Length - 1); // backspace
+                    if (inputBuffer.text.Length == 0) {
+                        LayoutRebuilder.MarkLayoutForRebuild(layoutRoot); // update layout when string is empty so that background behind text gets removed
+                    }
                 }
+            }
+
+            else if ((int)c == 127) {
+                // ignore ASCII DEL
+                continue;
             }
 
             else if ((c == '\n') || (c == '\r') || (c == ' ')) {
@@ -42,34 +59,41 @@ public class InputHandler : MonoBehaviour {
             }
 
             else {
-                // all other characters
+                // all other characters get added to the input buffer
                 inputBuffer.text += c;
+                gameStarted = true; // start the game on first keypress
             }
 
             KeyPressedEventArgs e = new KeyPressedEventArgs();
             e.key = c;
-            e.isCorrect = false;
+            e.isCorrect = UpdateHighlighting();
 
-            // iterate through list backwards so that items can be removed
-            for (int i=Targetable.targetableList.Count - 1; i>=0; i--) {
-                Targetable t = Targetable.targetableList[i];
-
-                if (t.CheckSubstringMatch(inputBuffer.text)) {
-                    e.isCorrect = true;
-
-                    if (t.CheckCompleteMatch(inputBuffer.text)) {
-                        
-                        WordCompletedEventArgs wc = new WordCompletedEventArgs();
-                        wc.wordLength = inputBuffer.text.Length;
-                        OnWordCompleted(wc); // trigger global word completed event
-
-                        ResetBuffer();
-                    }
-                }
-            }
-
+            audioSource.PlayOneShot(keyClick, 1.0f);
             OnKeyPressed(e); // trigger global key pressed event
         }
+    }
+
+    private bool UpdateHighlighting() {
+        bool isCorrect = false;
+
+        // iterate through list backwards so that items can be removed
+        for (int i = Targetable.targetableList.Count - 1; i >= 0; i--) {
+            Targetable t = Targetable.targetableList[i];
+
+            if (t.CheckSubstringMatch(inputBuffer.text)) {
+                isCorrect = true;
+
+                if (t.CheckCompleteMatch(inputBuffer.text)) {
+                    WordCompletedEventArgs wc = new WordCompletedEventArgs();
+                    wc.wordLength = inputBuffer.text.Length;
+                    OnWordCompleted(wc); // trigger global word completed event
+
+                    ResetBuffer();
+                }
+            }
+        }
+
+        return isCorrect;
     }
 
     private void GetControlInput() {
@@ -77,20 +101,23 @@ public class InputHandler : MonoBehaviour {
         // get input that controls game ie F-keys, clear buffer
 
         // Ctrl + Backspace 
-        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace))
-        {
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Input.GetKeyDown(KeyCode.Backspace)) {
+            ResetBuffer();
+        }
+
+        // Tab
+        if (Input.GetKeyDown(KeyCode.Tab)) {
             ResetBuffer();
         }
 
         // Press F11 to toggle fullscreen
-        if (Input.GetKeyDown(KeyCode.F11))
-        {
+        if (Input.GetKeyDown(KeyCode.F11)) {
             Screen.fullScreen = !Screen.fullScreen;
         }
 
         // Press F1 to reload scene
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            gameStarted = false;
             SceneManager.LoadScene(0);
         }
     }

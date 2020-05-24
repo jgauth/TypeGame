@@ -111,6 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337f1345700365f48bb171fdd62e9152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticleEffect: {fileID: 198856239026640498, guid: 62f7be6357ca026429c9354344647e08,
+    type: 3}
+  deathSound: {fileID: 8300000, guid: 15f908fbcb547fb4a91ba73692aa5e3e, type: 3}
 --- !u!1 &1159745215084782
 GameObject:
   m_ObjectHideFlags: 0

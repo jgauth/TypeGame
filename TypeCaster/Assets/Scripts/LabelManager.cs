@@ -8,9 +8,11 @@ public class LabelManager : MonoBehaviour {
     public GameObject labelHolder;
     public Camera mainCamera;
     public Label labelPrefab;
+    public float heightOffsetScale = 2f; // how high to scale the labels above the Targetable
 
     private Dictionary<Targetable, Label> targetableLabels = new Dictionary<Targetable, Label>();
 
+    // when new targetables are spawned, this will create the label for them
     void c_TargetableAdded(object sender, TargetableAddedEventArgs args) {
         Targetable t = args.targetableAdded;
 
@@ -22,11 +24,11 @@ public class LabelManager : MonoBehaviour {
         }
     }
 
+    // remove label when targetables are despawned
     void c_TargetableRemoved(object sender, TargetableRemovedEventArgs args) {
         Targetable t = args.targetableRemoved;
 
         if (targetableLabels.ContainsKey(t)) {
-            
             if (targetableLabels[t]) {
                 Destroy(targetableLabels[t].gameObject);
             }
@@ -76,52 +78,11 @@ public class LabelManager : MonoBehaviour {
         return labelList;
     }
 
-    // private void LateUpdate() {
-    //     // if (Input.GetKeyDown(KeyCode.G)) {
-    //         List<Label> labelList = CreatedSortedLabelList();
-
-    //         int numLabels = labelList.Count;
-    //         for (int i = 0; i < numLabels - 1; i++) {
-    //             for (int j = i+1; j < numLabels; j++) {
-
-    //                 Label a = labelList[i];
-    //                 Label b = labelList[j];
-
-    //                 RectTransform rectTrans_a = a.GetComponent<RectTransform>();
-    //                 RectTransform rectTrans_b = b.GetComponent<RectTransform>();
-
-    //                 Vector3[] v_a = new Vector3[4];
-    //                 Vector3[] v_b = new Vector3[4];
-
-    //                 rectTrans_a.GetWorldCorners(v_a);
-    //                 rectTrans_b.GetWorldCorners(v_b);
-
-    //                 Rect rect_a = new Rect(v_a[1].x, v_a[1].y, v_a[2].x - v_a[1].x, v_a[1].y - v_a[0].y);
-    //                 Rect rect_b = new Rect(v_b[1].x, v_b[1].y, v_b[2].x - v_b[1].x, v_b[1].y - v_b[0].y);
-
-
-    //                 if (rect_a.Overlaps(rect_b)) {
-
-    //                     Debug.Log($"{a.labelText.text} overlaps {b.labelText.text}");
-
-    //                     while(rect_a.Overlaps(rect_b)) {
-    //                         rect_b.y += 2f;
-    //                         b.dynamicOffset += 2f;
-    //                     }
-    //                     b.dynamicOffset += 2f;
-    //                 }
-    //             }
-    //         }
-    //     // }
-    // }
-
+    // ---------------------------------------------------
+    // DYNAMIC LABEL POSITIONING
+    // ---------------------------------------------------
     private void LateUpdate() {
         List<Label> labelList = CreatedSortedLabelList();
-
-        // foreach (Label l in labelList) {
-        //     Targetable t = l.GetTargetable();
-        //     Vector3 screenPos = mainCamera.WorldToScreenPoint(t.transform.position);
-        // }
 
         Label temp, current;
         RectTransform tempRectTrans, currentRectTrans;
@@ -131,7 +92,7 @@ public class LabelManager : MonoBehaviour {
         for (int i = 0; i < labelList.Count; i++) {
 
             current = labelList[i];
-            Vector3 idealPos = mainCamera.WorldToScreenPoint(current.GetTargetable().transform.position);
+            Vector3 idealPos = mainCamera.WorldToScreenPoint(current.GetTargetable().transform.position + Vector3.up * current.GetHeightOffset() * heightOffsetScale);
             idealPos.z = 0f;
             current.transform.position = idealPos;
 
