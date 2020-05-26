@@ -2,28 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandardEnemy : MonoBehaviour {
+public class StandardEnemy : MonoBehaviour
+{
 
     public ParticleSystem deathParticleEffect;
     public AudioClip deathSound;
     public float speed;
     public string PlayerGameObjectName;
-    
+
+
     Targetable targetable;
     GameObject player;
     bool inAttackRange;
 
-    void Awake() {
+    void Awake()
+    {
         targetable = gameObject.GetComponent<Targetable>();
         targetable.TargetableWordCompleted += c_TargetableWordCompleted;
     }
 
-    private void Start() {
+    private void Start()
+    {
         player = GameObject.Find(PlayerGameObjectName);
     }
 
-    private void Update() {
-        if (InputHandler.gameStarted && !inAttackRange) {
+    private void Update()
+    {
+        if (InputHandler.gameStarted && !inAttackRange)
+        {
             // move towards player
             float step = speed * Time.deltaTime;
             Vector3 newPosition = player.transform.position;
@@ -39,13 +45,16 @@ public class StandardEnemy : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject == player) {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player)
+        {
             inAttackRange = true;
         }
     }
 
-    private void c_TargetableWordCompleted(object sender, TargetableWordCompletedEventArgs args) {
+    private void c_TargetableWordCompleted(object sender, TargetableWordCompletedEventArgs args)
+    {
         // Need to set particle "stop action" to "destroy" in the editor so that it will be automatically destroyed when finished playing
         ParticleSystem ps = Instantiate(deathParticleEffect, transform.position, Quaternion.identity);
 
@@ -53,8 +62,9 @@ public class StandardEnemy : MonoBehaviour {
         AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
         Destroy(gameObject);
     }
-    
-    private void OnDisable() {
+
+    private void OnDisable()
+    {
         targetable.TargetableWordCompleted -= c_TargetableWordCompleted;
     }
 }

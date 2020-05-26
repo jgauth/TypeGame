@@ -6,15 +6,35 @@ using Random = UnityEngine.Random;
 public class WordGenerator : MonoBehaviour
 {
 
-    public static string[] words;
+    public static string[] easyWords;
+    public static string[] mediumWords;
+    public static string[] bossWords;
 
     void Awake()
     {
-        words = Resources.Load<TextAsset>("easy").text.Split('\n');
+        easyWords = Resources.Load<TextAsset>("easy").text.Split('\n');
+        mediumWords = Resources.Load<TextAsset>("medium").text.Split('\n');
+        bossWords = Resources.Load<TextAsset>("boss").text.Split('\n');
     }
 
-    public static string GetRandomWord()
+    public static string GetRandomWord(string difficulty)
     {
-        return words[Random.Range(0, words.Length)].Trim();
+        string word;
+        switch (difficulty)
+        {
+            case "easy":
+                word = easyWords[Random.Range(0, easyWords.Length)].Trim();
+                break;
+            case "medium":
+                word = mediumWords[Random.Range(0, mediumWords.Length)].Trim();
+                break;
+            case "boss":
+                word = bossWords[Random.Range(0, bossWords.Length)].Trim();
+                break;
+            default:
+                word = easyWords[Random.Range(0, easyWords.Length)].Trim();
+                break;
+        }
+        return word;
     }
 }

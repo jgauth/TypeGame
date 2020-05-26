@@ -879,6 +879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexTextHighlightColor: '#20C20E'
+  wordDifficulty: easy
 --- !u!114 &-6811492722755900697
 MonoBehaviour:
   m_ObjectHideFlags: 0
