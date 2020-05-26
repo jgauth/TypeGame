@@ -13,6 +13,7 @@ public class SpawnPoint : MonoBehaviour {
 
     GameObject enemyHolder;
     GameObject player;
+    bool spawnComplete = false;
 
     void Start() {
         enemyHolder = GameObject.Find(EnemyHolderName);
@@ -20,13 +21,14 @@ public class SpawnPoint : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject == player) {
+        if (other.gameObject == player && !spawnComplete) {
             for (int i = 0; i < spawnNum; i++) {
                 Vector3 spawnPos = Random.insideUnitSphere * spawnRadius + transform.position;
                 spawnPos.y = 0;
                 GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
                 Instantiate(enemyPrefab, spawnPos, Quaternion.identity, enemyHolder.transform);
             }
+            spawnComplete = true;
         }
     }
 }

@@ -11,6 +11,7 @@ public class StandardEnemy : MonoBehaviour {
     
     Targetable targetable;
     GameObject player;
+    bool inAttackRange;
 
     void Awake() {
         targetable = gameObject.GetComponent<Targetable>();
@@ -22,21 +23,25 @@ public class StandardEnemy : MonoBehaviour {
     }
 
     private void Update() {
-        if (InputHandler.gameStarted) {
+        if (InputHandler.gameStarted && !inAttackRange) {
+            // move towards player
             float step = speed * Time.deltaTime;
             Vector3 newPosition = player.transform.position;
             newPosition.y = transform.position.y;
 
             transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
 
-
-
+            // rotate towards player
             Vector3 relativePos = player.transform.position - transform.position;
             relativePos.y = 0;
             Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             transform.rotation = rotation;
+        }
+    }
 
-            // transform.LookAt(player.transform, Vector3.up);
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject == player) {
+            inAttackRange = true;
         }
     }
 

@@ -20,7 +20,7 @@ public class SpawnPointPlacer : MonoBehaviour {
             VertexPath path = pathCreator.path;
 
             spacing = Mathf.Max(minSpacing, spacing);
-            float distance = spacing * 2; // multiply by 2 so that first two are skipped
+            float distance = spacing * 3; // multiply by 2 so that first three are skipped
 
             while (distance < path.length) {
                 Vector3 point = path.GetPointAtDistance(distance);
