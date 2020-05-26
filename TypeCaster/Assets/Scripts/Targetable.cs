@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class TargetableAddedEventArgs : EventArgs {
+public class TargetableAddedEventArgs : EventArgs
+{
     public Targetable targetableAdded;
 }
-public class TargetableRemovedEventArgs : EventArgs {
+public class TargetableRemovedEventArgs : EventArgs
+{
     public Targetable targetableRemoved;
 }
-public class TargetableTextChangedEventArgs : EventArgs {
+public class TargetableTextChangedEventArgs : EventArgs
+{
     public string newText;
 }
-public class TargetableWordCompletedEventArgs : EventArgs {
+public class TargetableWordCompletedEventArgs : EventArgs
+{
 
 }
 
 
-public class Targetable : MonoBehaviour {
+public class Targetable : MonoBehaviour
+{
 
     public string hexTextHighlightColor;
 
@@ -34,20 +39,24 @@ public class Targetable : MonoBehaviour {
 
     // word that if typed, destroys the attached gameObject
     private string killWord;
-    
+
     // word displayed in canvas above targetable, with highlighting
     private string displayWord;
+    public string wordDifficulty;
 
-    public string GetKillWord() {
+    public string GetKillWord()
+    {
         return killWord;
     }
 
-    public void SetKillWord(string newWord) {
+    public void SetKillWord(string newWord)
+    {
         killWord = newWord;
         UpdateDisplayWord(newWord);
     }
 
-    private void UpdateDisplayWord(string newDisplayWord) {
+    private void UpdateDisplayWord(string newDisplayWord)
+    {
         displayWord = newDisplayWord;
 
         TargetableTextChangedEventArgs args = new TargetableTextChangedEventArgs();
@@ -55,28 +64,33 @@ public class Targetable : MonoBehaviour {
         OnTargetableTextChanged(args);
     }
 
-    public bool CheckSubstringMatch(string input) {
+    public bool CheckSubstringMatch(string input)
+    {
         // Return true if input is substring of word starting at index 0
         // Return false otherwise
-        
+
         // also update display word highlighting
 
         // input cannot be longer than killWord && substring matches
-        if (input.Length <= killWord.Length && input.Equals(killWord.Substring(0, input.Length))) {
+        if (input.Length <= killWord.Length && input.Equals(killWord.Substring(0, input.Length)))
+        {
 
             string highlightedText = $"<color={hexTextHighlightColor}>{killWord.Substring(0, input.Length)}</color>{killWord.Substring(input.Length, killWord.Length - input.Length)}";
             UpdateDisplayWord(highlightedText); // substring matches to update highlighting
             return true;
         }
-        else {
+        else
+        {
             UpdateDisplayWord(killWord); // substring doesn't match so reset highlighting
             return false;
         }
     }
 
-    public bool CheckCompleteMatch(string input) {
+    public bool CheckCompleteMatch(string input)
+    {
         // Return true if input exactly matches killWord
-        if (input.Equals(killWord)) {
+        if (input.Equals(killWord))
+        {
             OnTargetableWordCompleted(new TargetableWordCompletedEventArgs()); // trigger word completed event
             return true;
         }
@@ -84,11 +98,13 @@ public class Targetable : MonoBehaviour {
         return false;
     }
 
-    private void Start() {
-        SetKillWord(WordGenerator.GetRandomWord()); // May want to have this handled by the enemy classes
+    private void Start()
+    {
+        SetKillWord(WordGenerator.GetRandomWord(wordDifficulty)); // May want to have this handled by the enemy classes
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         targetableList.Add(this);
 
         TargetableAddedEventArgs args = new TargetableAddedEventArgs();
@@ -97,36 +113,45 @@ public class Targetable : MonoBehaviour {
         OnTargetableAdded(args);
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         targetableList.Remove(this);
 
         TargetableRemovedEventArgs args = new TargetableRemovedEventArgs();
         args.targetableRemoved = this;
-        
+
         OnTargetableRemoved(args);
     }
 
 
     // OnEvents
-    protected virtual void OnTargetableRemoved(TargetableRemovedEventArgs e) {
-        if (TargetableRemoved != null) {
+    protected virtual void OnTargetableRemoved(TargetableRemovedEventArgs e)
+    {
+        if (TargetableRemoved != null)
+        {
             TargetableRemoved(this, e);
         }
     }
-    protected virtual void OnTargetableAdded(TargetableAddedEventArgs e) {
-        if (TargetableAdded != null) {
+    protected virtual void OnTargetableAdded(TargetableAddedEventArgs e)
+    {
+        if (TargetableAdded != null)
+        {
             TargetableAdded(this, e);
         }
     }
-    protected virtual void OnTargetableTextChanged(TargetableTextChangedEventArgs e) {
-        if (TargetableTextChanged != null) {
+    protected virtual void OnTargetableTextChanged(TargetableTextChangedEventArgs e)
+    {
+        if (TargetableTextChanged != null)
+        {
             TargetableTextChanged(this, e);
         }
     }
-    protected virtual void OnTargetableWordCompleted(TargetableWordCompletedEventArgs e) {
-        if (TargetableWordCompleted != null) {
+    protected virtual void OnTargetableWordCompleted(TargetableWordCompletedEventArgs e)
+    {
+        if (TargetableWordCompleted != null)
+        {
             TargetableWordCompleted(this, e);
         }
     }
-    
+
 }
