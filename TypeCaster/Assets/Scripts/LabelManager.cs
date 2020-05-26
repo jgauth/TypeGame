@@ -8,7 +8,7 @@ public class LabelManager : MonoBehaviour {
     public GameObject labelHolder;
     public Camera mainCamera;
     public Label labelPrefab;
-    public float heightOffsetScale = 2f; // how high to scale the labels above the Targetable
+    public float heightOffsetScale = 1.5f; // how high to scale the labels above the Targetable
 
     private Dictionary<Targetable, Label> targetableLabels = new Dictionary<Targetable, Label>();
 

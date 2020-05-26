@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
+[ExecuteInEditMode]
 public class WaypointPathGenerator : MonoBehaviour {
 
-    // public Transform[] waypoints;
     public Transform waypointHolder;
 
-    // Transform[] waypoints;
     List<Transform> waypoints = new List<Transform>();
 
     void Start() {
