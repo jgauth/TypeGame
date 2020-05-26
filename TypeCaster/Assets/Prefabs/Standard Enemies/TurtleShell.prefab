@@ -894,7 +894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticleEffect: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
-  deathSound: {fileID: 8300000, guid: 15f908fbcb547fb4a91ba73692aa5e3e, type: 3}
+  deathSound: {fileID: 8300000, guid: 3691f0802c46e4c188ec2c521b632f28, type: 3}
   speed: 1.5
   PlayerGameObjectName: Main Camera
 --- !u!135 &-2704120693224295313
