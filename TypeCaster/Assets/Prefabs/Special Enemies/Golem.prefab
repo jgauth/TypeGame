@@ -443,9 +443,8 @@ GameObject:
   - component: {fileID: 8406177777390395413}
   - component: {fileID: 1883276395006102895}
   - component: {fileID: 2473755661022350507}
-  - component: {fileID: 6082996645962440610}
-  - component: {fileID: 2994238388480384070}
   - component: {fileID: 4003302418819065494}
+  - component: {fileID: 8537190322844263081}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -500,38 +499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e07a50db104050428c03ea75f722680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calculateHeightForLabel: 0
   hexTextHighlightColor: '#20C20E'
   wordDifficulty: boss
---- !u!114 &6082996645962440610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4824454706027155974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 337f1345700365f48bb171fdd62e9152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathParticleEffect: {fileID: 198917022394846920, guid: e1b08032bec16ba4eb1ae23cbd572664,
-    type: 3}
-  deathSound: {fileID: 8300000, guid: 0ac3e458f699144c1adad10cdd94836d, type: 3}
-  speed: 1.5
-  PlayerGameObjectName: Main Camera
---- !u!135 &2994238388480384070
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4824454706027155974}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0.5, y: 2, z: 0}
 --- !u!54 &4003302418819065494
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -548,6 +518,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8537190322844263081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4824454706027155974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a825d7517c4174eab007146479fedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5495433447717527555
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +816,7 @@ SkinnedMeshRenderer:
   m_RootBone: {fileID: 6469072962597896487}
   m_AABB:
     m_Center: {x: -0.015604615, y: 0.011406496, z: 0.010081477}
-    m_Extent: {x: 0.09098758, y: 0.07035884, z: 0.07142143}
+    m_Extent: {x: 0.07, y: 0.02, z: 0.04}
   m_DirtyAABB: 0
 --- !u!1 &7387624845834839972
 GameObject:

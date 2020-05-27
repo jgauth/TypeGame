@@ -117,7 +117,9 @@ MonoBehaviour:
   deathParticleEffect: {fileID: 198856239026640498, guid: 62f7be6357ca026429c9354344647e08,
     type: 3}
   deathSound: {fileID: 8300000, guid: 1470f58205c9248ea9610a4118c247a5, type: 3}
-  speed: 1.5
+  movementSpeed: 2
+  attackCooldown: 2
+  attackDamage: 20
   PlayerGameObjectName: Main Camera
 --- !u!135 &2220623688414412805
 SphereCollider:
@@ -130,7 +132,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.5
+  m_Radius: 2.2
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &7889164196268892015
 Rigidbody:

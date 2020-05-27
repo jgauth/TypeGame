@@ -14,7 +14,9 @@ public class Label : MonoBehaviour {
         targetable = t;
         labelText.text = targetable.GetKillWord();
         targetable.TargetableTextChanged += c_TargetableTextChanged;
-        heightOffset = targetable.gameObject.GetComponentInChildren<Renderer>().bounds.extents.y; // get height of enemy
+        if (targetable.calculateHeightForLabel) {
+            heightOffset = targetable.gameObject.GetComponentInChildren<Renderer>().bounds.extents.y; // get height of enemy
+        }        
     }
 
     public float GetHeightOffset() {
