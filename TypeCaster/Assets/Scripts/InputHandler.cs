@@ -118,7 +118,13 @@ public class InputHandler : MonoBehaviour {
         // Press F1 to reload scene
         if (Input.GetKeyDown(KeyCode.F1)) {
             gameStarted = false;
-            SceneManager.LoadScene(0);
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
+
+        // Press F2 to go to Main Menu
+        if (Input.GetKeyDown(KeyCode.F2)) {
+            SceneManager.LoadScene("Menu");
         }
     }
 
