@@ -23,7 +23,7 @@ public class TargetableWordCompletedEventArgs : EventArgs
 
 public class Targetable : MonoBehaviour
 {
-
+    public bool calculateHeightForLabel = true; // need this for when certain models have huge bounding boxes
     public string hexTextHighlightColor;
 
     // static list of all targetables

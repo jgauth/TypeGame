@@ -6,12 +6,18 @@ using Random = UnityEngine.Random;
 public class TestSpawner : MonoBehaviour {
 
     public List<GameObject> standardEnemyPrefabs;
+    public GameObject goldemPrefab;
     public Transform enemyHolder;
 
     void Start() {
         // SpawnSixEnemies();
         // SpawnOverlappers();
-        SpawnRandomLocation(15);
+        // SpawnRandomLocation(15);
+        SpawnGolem();
+    }
+
+    void SpawnGolem() {
+        Instantiate(goldemPrefab, new Vector3(-3, -1, -3), Quaternion.identity);
     }
 
     void SpawnTwoEnemies() {

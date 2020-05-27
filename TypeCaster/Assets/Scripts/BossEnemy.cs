@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class StandardEnemy : MonoBehaviour {
+public class BossEnemy : MonoBehaviour {
 
     public ParticleSystem deathParticleEffect;
     public AudioClip deathSound;
-    public float movementSpeed;
     public float attackCooldown;
     public float attackDamage;
     public string PlayerGameObjectName;
+    public bool finalEnemyInLevel;
 
 
     Animator animator;
     Targetable targetable;
     GameObject player;
 
-    bool inAttackRange;
     float attackCooldownTimeLeft;
 
 
@@ -33,28 +31,8 @@ public class StandardEnemy : MonoBehaviour {
     }
 
     private void Update() {
-        if (InputHandler.gameStarted && !inAttackRange) {
-            animator.SetBool("isMoving", true);
-
-            // move towards player
-            float step = movementSpeed * Time.deltaTime;
-            Vector3 newPosition = player.transform.position;
-            newPosition.y = transform.position.y;
-
-            transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
-
-            // rotate towards player
-            Vector3 relativePos = player.transform.position - transform.position;
-            relativePos.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            transform.rotation = rotation;
-        }
-        else {
-            animator.SetBool("isMoving", false);
-        }
-
-        if (InputHandler.gameStarted && inAttackRange) {
-            animator.SetBool("isMoving", false);
+        
+        if (InputHandler.gameStarted) {
             attackCooldownTimeLeft -= Time.deltaTime;
 
             if (attackCooldownTimeLeft <= 0.0f) {
@@ -65,7 +43,7 @@ public class StandardEnemy : MonoBehaviour {
     }
 
     void Attack() {
-        animator.Play("Attack01");
+        // animator.Play("Attack01");
     }
 
     // animation event
@@ -74,16 +52,6 @@ public class StandardEnemy : MonoBehaviour {
         p.receiveDamage(attackDamage);
     }
 
-    // animation event
-    public void AttackEnd() {
-        // currently no need for this
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject == player) {
-            inAttackRange = true;
-        }
-    }
 
     private void c_TargetableWordCompleted(object sender, TargetableWordCompletedEventArgs args) {
         // Need to set particle "stop action" to "destroy" in the editor so that it will be automatically destroyed when finished playing
@@ -92,6 +60,16 @@ public class StandardEnemy : MonoBehaviour {
         // this function spawns a gameobject at transform.position to play the sound, then destroys the gameObject
         AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
         Destroy(gameObject);
+
+        if (finalEnemyInLevel) {
+            Victory();
+        }
+    }
+
+    void Victory() {
+        // should show victory screen
+        InputHandler.gameStarted = false;
+        SceneManager.LoadScene(0);
     }
 
     private void OnDisable() {
