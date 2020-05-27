@@ -69,7 +69,7 @@ public class BossEnemy : MonoBehaviour {
     void Victory() {
         // should show victory screen
         InputHandler.gameStarted = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Victory");
     }
 
     private void OnDisable() {
