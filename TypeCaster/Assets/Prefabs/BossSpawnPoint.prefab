@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2181106053883410167}
   - component: {fileID: 3559735012406840213}
   - component: {fileID: 1565178695430256373}
-  - component: {fileID: -2000490488493214769}
   - component: {fileID: 3600334789367227071}
+  - component: {fileID: -1005710416373329115}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: BossSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,25 +93,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2000490488493214769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3177388475904185381}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d34bcadea5e45f34baae0935075972a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 1090219386143568, guid: a817c29ea6847604bb2c6c51d9a74bf1, type: 3}
-  - {fileID: 1837317425425208, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
-  spawnRadius: 6
-  spawnNum: 4
-  EnemyHolderName: Enemy Holder
-  PlayerGameObjectName: Main Camera
 --- !u!54 &3600334789367227071
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,3 +109,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1005710416373329115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177388475904185381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c94305851b910442b1d0f5e9b4186de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawneePrefab: {fileID: 0}
+  PlayerGameObjectName: Main Camera
