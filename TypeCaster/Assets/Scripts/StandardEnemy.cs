@@ -6,6 +6,7 @@ public class StandardEnemy : MonoBehaviour {
 
     public ParticleSystem deathParticleEffect;
     public AudioClip deathSound;
+    public AudioClip hitSound;
     public float movementSpeed;
     public float attackCooldown;
     public float attackDamage;
@@ -70,6 +71,9 @@ public class StandardEnemy : MonoBehaviour {
 
     // animation event
     public void AttackApex() {
+        // Play a sound when the player is hit
+        AudioSource.PlayClipAtPoint(hitSound, player.transform.position, 0.3f);
+
         PlayerLife p = player.GetComponent<PlayerLife>();
         p.receiveDamage(attackDamage);
     }

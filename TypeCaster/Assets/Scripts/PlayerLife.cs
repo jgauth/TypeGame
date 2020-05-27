@@ -35,6 +35,6 @@ public class PlayerLife : MonoBehaviour {
         // play sound
         // show level failed screen
         InputHandler.gameStarted = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Defeat");
     }
 }

@@ -878,6 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e07a50db104050428c03ea75f722680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calculateHeightForLabel: 1
   hexTextHighlightColor: '#20C20E'
   wordDifficulty: easy
 --- !u!114 &-6811492722755900697
@@ -895,6 +896,7 @@ MonoBehaviour:
   deathParticleEffect: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   deathSound: {fileID: 8300000, guid: 3691f0802c46e4c188ec2c521b632f28, type: 3}
+  hitSound: {fileID: 8300000, guid: 54a48c2dd5b96439eb974a78be0eae6a, type: 3}
   movementSpeed: 2
   attackCooldown: 2
   attackDamage: 20
