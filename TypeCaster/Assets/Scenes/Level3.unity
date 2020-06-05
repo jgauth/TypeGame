@@ -1407,16 +1407,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2052066686}
     m_Modifications:
-    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
-        type: 3}
-      propertyPath: levelMusic
-      value: 
-      objectReference: {fileID: 740328747}
-    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
-        type: 3}
-      propertyPath: exitBackgroundImageCanvasGroup
-      value: 
-      objectReference: {fileID: 693388880}
     - target: {fileID: 4958777024451408866, guid: 8c7a15e347aa54b86880982b21e1cc60,
         type: 3}
       propertyPath: m_Name
@@ -1477,6 +1467,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
+        type: 3}
+      propertyPath: levelMusic
+      value: 
+      objectReference: {fileID: 740328747}
+    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
+        type: 3}
+      propertyPath: exitBackgroundImageCanvasGroup
+      value: 
+      objectReference: {fileID: 693388880}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c7a15e347aa54b86880982b21e1cc60, type: 3}
 --- !u!4 &762526670 stripped
