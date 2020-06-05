@@ -533,12 +533,13 @@ MonoBehaviour:
   deathParticleEffect: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
     type: 3}
   deathSound: {fileID: 8300000, guid: fc98e29071eb04045ad0c23a003c1cd1, type: 3}
-  attackCooldown: 0
-  attackDamage: 0
+  attackCooldown: 4
+  attackDamage: 30
   PlayerGameObjectName: Main Camera
   finalEnemyInLevel: 1
   victoryMenu: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
     type: 3}
+  rock: {fileID: 9201992924731919268, guid: d0404520ed2562f499045839581bc26b, type: 3}
 --- !u!1 &5495433447717527555
 GameObject:
   m_ObjectHideFlags: 0

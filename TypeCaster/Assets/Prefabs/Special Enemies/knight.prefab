@@ -40,10 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170473251110827601}
-  - component: {fileID: 9130020174305041195}
-  - component: {fileID: -4949632410863445337}
   - component: {fileID: 6120122889287405173}
-  - component: {fileID: 7200756780623859927}
   m_Layer: 0
   m_Name: knight
   m_TagString: Untagged
@@ -68,40 +65,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 182.961, z: 0}
---- !u!95 &9130020174305041195
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766620709334041666}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 595f41f182d2a0e49ba33381381ec678, type: 3}
-  m_Controller: {fileID: 9100000, guid: 86bb601f5bd0ded42bc5208d21c41c35, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-4949632410863445337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766620709334041666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e07a50db104050428c03ea75f722680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  calculateHeightForLabel: 0
-  hexTextHighlightColor: '#20C20E'
-  wordDifficulty: boss
 --- !u!54 &6120122889287405173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,27 +81,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7200756780623859927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766620709334041666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a825d7517c4174eab007146479fedf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathParticleEffect: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
-    type: 3}
-  deathSound: {fileID: 8300000, guid: 3691f0802c46e4c188ec2c521b632f28, type: 3}
-  attackCooldown: 0
-  attackDamage: 0
-  PlayerGameObjectName: Main Camera
-  finalEnemyInLevel: 1
-  victoryMenu: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
-    type: 3}
 --- !u!1 &2882909078076198461
 GameObject:
   m_ObjectHideFlags: 0

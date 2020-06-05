@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3797753468074328961}
   - component: {fileID: 7460456612963024760}
   - component: {fileID: 2838765123211859149}
+  - component: {fileID: -3159370020341276688}
   m_Layer: 0
-  m_Name: rock
+  m_Name: Golem Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,3 +98,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3159370020341276688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201992924731919268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1f49301ec542840a0fdd64a136d842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 7
+  PlayerGameObjectName: Main Camera
+  damage: 30
+  hitSound: {fileID: 8300000, guid: 3691f0802c46e4c188ec2c521b632f28, type: 3}

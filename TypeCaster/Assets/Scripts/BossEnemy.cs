@@ -10,6 +10,7 @@ public class BossEnemy : MonoBehaviour {
     public string PlayerGameObjectName;
     public bool finalEnemyInLevel;
     public VictoryMenu victoryMenu;
+    public GameObject rock;
 
 
     Animator animator;
@@ -32,6 +33,12 @@ public class BossEnemy : MonoBehaviour {
     }
 
     private void Update() {
+
+        // rotate towards player
+        Vector3 relativePos = player.transform.position - transform.position;
+        relativePos.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation = rotation;
         
         if (InputHandler.gameStarted) {
             attackCooldownTimeLeft -= Time.deltaTime;
@@ -44,13 +51,13 @@ public class BossEnemy : MonoBehaviour {
     }
 
     void Attack() {
-        // animator.Play("Attack01");
+        animator.Play("Armature|throw");
     }
 
     // animation event
-    public void AttackApex() {
-        PlayerLife p = player.GetComponent<PlayerLife>();
-        p.receiveDamage(attackDamage);
+    public void ThrowRock() {
+        GameObject g = Instantiate(rock, new Vector3(0, 0, 0), Quaternion.identity, transform);
+        g.transform.localPosition = new Vector3(1.8f,3.4f,3.9f);
     }
 
 
