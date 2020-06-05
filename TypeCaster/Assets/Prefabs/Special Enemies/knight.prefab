@@ -137,6 +137,8 @@ MonoBehaviour:
   attackDamage: 0
   PlayerGameObjectName: Main Camera
   finalEnemyInLevel: 1
+  victoryMenu: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
+    type: 3}
 --- !u!1 &2882909078076198461
 GameObject:
   m_ObjectHideFlags: 0
