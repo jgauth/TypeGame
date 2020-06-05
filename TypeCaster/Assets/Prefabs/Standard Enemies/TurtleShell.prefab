@@ -901,6 +901,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackDamage: 20
   PlayerGameObjectName: Main Camera
+  attackAnimationName: Attack01
 --- !u!135 &-2704120693224295313
 SphereCollider:
   m_ObjectHideFlags: 0

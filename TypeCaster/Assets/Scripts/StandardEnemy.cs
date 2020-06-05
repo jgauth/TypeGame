@@ -11,6 +11,7 @@ public class StandardEnemy : MonoBehaviour {
     public float attackCooldown;
     public float attackDamage;
     public string PlayerGameObjectName;
+    public string attackAnimationName;
 
 
     Animator animator;
@@ -66,7 +67,7 @@ public class StandardEnemy : MonoBehaviour {
     }
 
     void Attack() {
-        animator.Play("Attack01");
+        animator.Play(attackAnimationName);
     }
 
     // animation event

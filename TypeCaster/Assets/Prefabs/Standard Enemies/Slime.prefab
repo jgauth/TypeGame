@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   calculateHeightForLabel: 1
   hexTextHighlightColor: '#20C20E'
-  wordDifficulty: medium
+  wordDifficulty: easy
 --- !u!114 &6198145886938613993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   attackCooldown: 2
   attackDamage: 20
   PlayerGameObjectName: Main Camera
+  attackAnimationName: Attack01
 --- !u!135 &2220623688414412805
 SphereCollider:
   m_ObjectHideFlags: 0
