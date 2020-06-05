@@ -11,7 +11,6 @@ public class BossEnemy : MonoBehaviour {
     public bool finalEnemyInLevel;
     public VictoryMenu victoryMenu;
     public GameObject rock;
-    
 
 
     Animator animator;
@@ -78,7 +77,7 @@ public class BossEnemy : MonoBehaviour {
     void Victory() {
         // should show victory screen
         InputHandler.gameStarted = false;
-        SceneManager.LoadScene("Menu");
+        victoryMenu.PlayerWins();
     }
 
     private void OnDisable() {
