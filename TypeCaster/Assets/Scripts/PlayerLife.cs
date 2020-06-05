@@ -8,6 +8,7 @@ public class PlayerLife : MonoBehaviour {
 
     public float health = 100f;
     public TextMeshProUGUI healthText;
+    public DefeatMenu defeatMenu;
 
     void Start() {
         UpdateHealthText();
@@ -35,6 +36,6 @@ public class PlayerLife : MonoBehaviour {
         // play sound
         // show level failed screen
         InputHandler.gameStarted = false;
-        SceneManager.LoadScene("Defeat");
+        defeatMenu.PlayerDies();
     }
 }
