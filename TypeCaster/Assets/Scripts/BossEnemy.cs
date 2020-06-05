@@ -9,8 +9,8 @@ public class BossEnemy : MonoBehaviour {
     public float attackDamage;
     public string PlayerGameObjectName;
     public bool finalEnemyInLevel;
-    public VictoryMenu victoryMenu;
     public GameObject rock;
+    public VictoryMenu victoryMenu;
 
 
     Animator animator;
@@ -77,6 +77,8 @@ public class BossEnemy : MonoBehaviour {
     void Victory() {
         // should show victory screen
         InputHandler.gameStarted = false;
+        GameObject t = GameObject.Find("VictoryMenu");
+        victoryMenu = t.GetComponent(typeof(VictoryMenu)) as VictoryMenu;
         victoryMenu.PlayerWins();
     }
 

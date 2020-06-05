@@ -1407,16 +1407,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2052066686}
     m_Modifications:
-    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
-        type: 3}
-      propertyPath: levelMusic
-      value: 
-      objectReference: {fileID: 740328747}
-    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
-        type: 3}
-      propertyPath: exitBackgroundImageCanvasGroup
-      value: 
-      objectReference: {fileID: 693388880}
     - target: {fileID: 4958777024451408866, guid: 8c7a15e347aa54b86880982b21e1cc60,
         type: 3}
       propertyPath: m_Name
@@ -1477,6 +1467,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
+        type: 3}
+      propertyPath: levelMusic
+      value: 
+      objectReference: {fileID: 740328747}
+    - target: {fileID: 4958777024451408868, guid: 8c7a15e347aa54b86880982b21e1cc60,
+        type: 3}
+      propertyPath: exitBackgroundImageCanvasGroup
+      value: 
+      objectReference: {fileID: 693388880}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c7a15e347aa54b86880982b21e1cc60, type: 3}
 --- !u!4 &762526670 stripped
@@ -1565,12 +1565,12 @@ PrefabInstance:
     - target: {fileID: 3964156021239486018, guid: 8ec75570cf09e4f2a9e36cb40f31101d,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -681
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3964156021239486018, guid: 8ec75570cf09e4f2a9e36cb40f31101d,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3964156021239486018, guid: 8ec75570cf09e4f2a9e36cb40f31101d,
         type: 3}
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340343284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55231f242125f724aaf78612138604ef, type: 3}
   m_Name: 
