@@ -20,6 +20,7 @@ public class InputHandler : MonoBehaviour {
     public RectTransform layoutRoot;
     public AudioClip keyClick;
     public AudioSource audioSource;
+    public GameObject controlsText;
 
     public static event EventHandler<KeyPressedEventArgs> KeyPressed; // event triggered on every individual key press
     public static event EventHandler<WordCompletedEventArgs> WordCompleted; // event triggered when a single word is completed
@@ -134,8 +135,15 @@ public class InputHandler : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        GetMainInput();
-        GetControlInput();
+        if (gameStarted) {
+            GetMainInput();
+            GetControlInput();
+        } else {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                controlsText.SetActive(false);
+                gameStarted = true;
+            }
+        }
     }
 
     protected virtual void OnKeyPressed(KeyPressedEventArgs e) {
